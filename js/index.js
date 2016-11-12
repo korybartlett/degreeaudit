@@ -74,7 +74,7 @@ function generateReport(){
 }
 
 function loadData(data) {
-  console.log(data);
+  //console.log(data);
   var userInput = "";
   for(var i = 1; i < data.length; i++)
   {
@@ -210,6 +210,10 @@ function addCoreCourse (userInput) {
         }
 	      continue;
       }
+      else {
+
+      }
+
 
       var tdElement = reqMet[k] + " (" + userInput + ")"
       var button = '<button type="reset" value="reset" onclick="resetCoreBox(\''+tdElement+'\')">X</button>'
@@ -307,6 +311,7 @@ function resetElectBox(tdElement) {
 function resetCoreBox(tdElement){
   //console.log(tdElement);
   //removes all occurances of poli2 but replaces with poli2
+
   //gets original tdElement requirement text
   var delReq = "";
   var originalValue = tdElement.split("(");
@@ -338,9 +343,11 @@ function resetCoreBox(tdElement){
       //console.log(tableObj.reqSat + " *req satisfied obj");
       var index = tableObj.core.indexOf(course);
       console.log(index + "*index");
+      
       if (index > -1){
         tableObj.core.splice(index, 1);
       }
+
       console.log(tableObj.core + " *post  delete core classes");
       //delReq = delReq + " " + reqSplit;
       delReq = reqSplit
@@ -393,14 +400,16 @@ function resetCoreBox(tdElement){
   //console.log(tableObj.reqSat + " req obj");
 }
 
+//function checks if requirement removed can be satisfied by a double dipper that is currently in list 
+//will change element removed to satisfied
 function reAdd(course, reqMet){
-    var tdElement = reqMet + " (" + course + ")";
-    var button = '<button type="reset" value="reset" onclick="resetCoreBox(\''+tdElement+'\')">X</button>';
-    //finds user input in html table data, changes color to green
-    $( "td:contains('" + reqMet + "')" ).css("background-color", "#228B22");
-    //finds user input in html table data, appends the users class to the row
-    $( "td:contains('" + reqMet + "')" ).append(" ("+course+") "+button);
-    //add classes as they are input to object
+  var tdElement = reqMet + " (" + course + ")";
+  var button = '<button type="reset" value="reset" onclick="resetCoreBox(\''+tdElement+'\')">X</button>';
+  //finds user input in html table data, changes color to green
+  $( "td:contains('" + reqMet + "')" ).css("background-color", "#228B22");
+  //finds user input in html table data, appends the users class to the row
+  $( "td:contains('" + reqMet + "')" ).append(" ("+course+") "+button);
+  //add classes as they are input to object
   tableObj.reqSat.push(reqMet);
   console.log(tableObj.reqSat + " readded reqs");
 }
@@ -414,12 +423,12 @@ function majorReqCheck (userInput, reqMet) {
 
   //function $.inArray returns index of value, -1 if not found in array
   if(tableObj.major.includes(userInput)){
-    alert("class already added");
+    alert("class: "+ userInput+" already added");
     return true;
   }
 
   if(tableObj.reqSat.includes(reqMet)){
-    alert("requirment already satisfied");
+    alert("requirment: "+reqMet+" already satisfied");
     return true;
   }
 
@@ -435,13 +444,13 @@ function coreReqCheck(userInput, reqMet){
   }
 
   if(tableObj.core.includes(userInput)){
-    alert("class already added");
+    alert("class: "+ userInput+" already added");
     return true;
   }
 
   //console.log(reqMet);
   if(tableObj.reqSat.includes(reqMet)){
-    alert("requirment already satisfied");
+    alert("requirment: "+reqMet+" already satisfied");
     return true;
   }
 
