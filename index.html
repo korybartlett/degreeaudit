@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Degree Progress Report</title>
+  <link rel="stylesheet" type="text/css" href="css/input.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script type="text/javascript" src="js/requirements.js"></script>
+  <script type="text/javascript" src="js/input.js"></script>
+</head>
+<body>
+  <div class="userInput">
+    <input type="text" name="course" id="userCourse" placeholder="Example: coen10">
+    <input type="button" value="Enter" id="submitButton" onclick="textGrab()">
+  </div>
+  <button type="button" id="savebtn" onclick="generateCSV()">Save</button>
+  <table id="tb1" align="center">
+    <tr>
+      <th>Major</th>
+      <th>Core</th>
+      <th>Educational Enrichment</th>
+    </tr>
+    <tr>
+      <td>engr1</td>
+      <td>CTW1</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>coen10</td>
+      <td>CTW2</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>coen11</td>
+      <td>social science</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>coen12</td>
+      <td>CI1</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>coen19</td>
+      <td>CI2</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>coen20</td>
+      <td>CI3</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>coen21</td>
+      <td>rtc1</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>coen70</td>
+      <td>rtc2</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>coen122</td>
+      <td>rtc3</td>
+    </tr>
+    <tr>
+      <td>coen146</td>
+      <td>ethics</td>
+    </tr>
+    <tr>
+      <td>coen171</td>
+      <td>arts</td>
+    </tr>
+    <tr>
+      <td>coen174</td>
+      <td>diversity</td>
+    </tr>
+    <tr>
+      <td>coen175</td>
+      <td>experiential learning</td>
+    </tr>
+    <tr>
+      <td>coen177</td>
+      <td>civic engagement</td>
+    </tr>
+    <tr>
+      <td>coen179</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>coen194</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>coen195</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>coen196</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td class="coen elective 1">coen elective 1</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td class="coen elective 2">coen elective 2</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td class="coen elective 3">coen elective 3</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>engl181</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>elen50</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>elen153</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>math11</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>math12</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>math13</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>math14</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>math elective</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>amth106</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>amth108</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>phys31</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>phys32</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>phys33</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>chem11</td>
+      <td></td>
+    </tr>
+  </table>
+  <div class="generateBar">
+    <input type="button" id="generatebtn" value="Generate Progress Report" onclick="myFunction()">
+    <script>
+      function myFunction(){
+      var output = generateReport();
+      window.alert(output);
+      }
+    </script>
+    <!--<button type="button" id="generatebtn">Generate Progress Report</button>-->
+  </div>
+  <div>
+    <footer>
+      <p>&copy; All Rights Reserved</p>
+      <p>Contact Us: mwalsh2@scu.edu atina@scu.edu kbartlett@scu.edu</p>
+    </footer>
+  </div>
+</body>
+</html>
+
+<!-- -->

@@ -1,0 +1,48 @@
+h1 {
+  font-size: 4em;
+}
+
+h2{
+  font-size: 2.75em;
+  color: #DC143C;
+}
+
+.header{
+  text-align: center;
+}
+
+.buttons{
+  text-align: center;
+}
+
+button{
+  font-size: 1em;
+  /*display: block;*/
+  margin: 50px auto;
+}
+
+#createbtn {
+  font-size: 1em;
+  display: block;
+  margin: 50px auto;
+}
+
+img {
+  max-width: 15%;
+  height: auto;
+  text-align: center;
+  margin: 0 auto;
+  display: block;
+}
+
+body {
+  background-color: #FFF8DC;
+}
+
+footer{
+  text-align: center;
+}
+
+/*#myFileInput {
+  visibility: hidden;
+}*/

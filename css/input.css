@@ -1,0 +1,44 @@
+/*
+  red = #FF6347
+*/
+.userInput {
+  text-align: left;
+}
+
+input {
+  height: 20px;
+}
+
+#savebtn {
+  align: right;
+}
+
+.generateBar {
+  text-align: center;
+  margin: 0 auto;
+}
+
+table {
+  text-align: center;
+}
+
+table, th, td {
+  border: 1px solid black;
+
+}
+
+th {
+  background-color: #FFF8DC;
+}
+
+tr {
+  background-color: #FF6347;
+}
+
+body {
+  background-color: #FFF8DC;
+}
+
+footer{
+  text-align: center;
+}
