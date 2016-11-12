@@ -1,13 +1,23 @@
 /*
   red = #FF6347
 */
+h1 {
+  text-align: center;
+  font-size: 2em;
+}
+
 .userInput {
   text-align: left;
 }
 
 input {
-  height: 20px;
+  height: 1em;
+  font-size: 1em;
 }
+
+/*#inputBox{
+  height: 30px;
+}*/
 
 #savebtn {
   align: right;
