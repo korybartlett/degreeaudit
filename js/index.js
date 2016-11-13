@@ -82,7 +82,7 @@ function loadData(data) {
         userInput = userInput.toLowerCase();
         userInput = userInput.replace(/\s+/g, '');
         userInput = userInput.replace(/"/g, '');
-        //console.log(userInput);
+        console.log(userInput);
         var regexPattern = /^[a-z]{1,4}[0-9,a,b]{1,3}$/;
         if (!regexPattern.test(userInput)){
           alert("wrong format")
@@ -197,32 +197,24 @@ function addCoreCourse (userInput) {
 
   if(numReqMet > 1 && typeof(reqMet)=='object') {
     var flag = 0;
-    //check the lengeth of numReqMet, check if it is replacing a one, properly implement 
-    //if(){
-    //
-    // }
     for(var k=0;k<numReqMet;k++){
       if (coreReqCheck(userInput, reqMet[k])) {
-      	flag++;
-      	if(flag == numReqMet){
-      	  addEnrich(userInput);
-      	  return;
+      	
+        for(var i = 0; i<tableObj.core.length;i++){
+          var course = tableObj.core[i];
+          if(coreReq[course] == reqMet[k] && typeof(coreReq[course])!='object'){
+            var remTdElem = reqMet[k] + " (" + course + ")";
+            resetCoreBox(remTdElem);
+            addEnrich(course);
+            coreHTMLInject(userInput, reqMet[k]);
+          }
+             
         }
-	      continue;
-      }
-      else {
-
+        
+        continue;
       }
 
-
-      var tdElement = reqMet[k] + " (" + userInput + ")"
-      var button = '<button type="reset" value="reset" onclick="resetCoreBox(\''+tdElement+'\')">X</button>'
-      //finds user input in html table data, changes color to green
-      $( "td:contains('" + reqMet[k] + "')" ).css("background-color", "#228B22");
-      //finds user input in html table data, appends the users class to the row
-      $( "td:contains('" + reqMet[k] + "')" ).append(" ("+userInput+") "+button);
-      //add classes as they are input to object
-      tableObj.reqSat.push(reqMet[k]);
+      coreHTMLInject(userInput, reqMet[k]);
     }
   }
   else {
@@ -230,6 +222,18 @@ function addCoreCourse (userInput) {
       addEnrich(userInput)
       return;
     }
+
+    coreHTMLInject(userInput, reqMet);
+
+  }
+
+  tableObj.core.push(userInput);
+
+  //console.log(tableObj.core + " *post add core classes");
+  //console.log(tableObj.reqSat + " *req satisfied obj");
+}
+
+function coreHTMLInject(userInput, reqMet) {
     var tdElement = reqMet + " (" + userInput + ")"
     var button = '<button type="reset" value="reset" onclick="resetCoreBox(\''+tdElement+'\')">X</button>'
     //finds user input in html table data, changes color to green
@@ -238,13 +242,6 @@ function addCoreCourse (userInput) {
     $( "td:contains('" + reqMet + "')" ).append(" ("+userInput+") "+button);
     //add classes as they are input to object
     tableObj.reqSat.push(reqMet);
-
-  }
-
-  tableObj.core.push(userInput);
-
-  //console.log(tableObj.core + " *post add core classes");
-  //console.log(tableObj.reqSat + " *req satisfied obj");
 }
 
 function addEnrich(userInput){
@@ -282,6 +279,7 @@ function resetBox(tdElement){
   console.log(tableObj.major + " *post delete major classes");
   console.log(tableObj.reqSat + " *req satisfied obj");
   //write function to reinitialize box
+
 }
 
 function resetElectBox(tdElement) {
@@ -305,6 +303,7 @@ function resetElectBox(tdElement) {
 
   //console.log(tableObj.major + " *post delete major classes");
   //console.log(tableObj.reqSat + " *req satisfied obj");
+
 }
 
 
@@ -397,6 +396,8 @@ function resetCoreBox(tdElement){
       reAdd(course, coreReq[course][index])
     }
   }
+
+
   //console.log(tableObj.reqSat + " req obj");
 }
 
@@ -469,16 +470,4 @@ $(document).keypress(function(ev){
 //two dimensional array to keep track of satisfied classes
 //figure out how to remove coen electives
 //when deleting elective save count number to reset counter to deleted row, check to see if coutner is less than current coutner value
-
-//var arrayIndex = tableObj.major.indexOf(userInput);
-
-if (arrayIndex != -1){
-  console.log("adding element");
-}
-else {
-  console.log("Item not found in array");
-
-}
-  $('#tr' + tableObj.major.length).append('<td>' + userInput + '</td>');
-<script>alert(0)</script>
 */

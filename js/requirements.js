@@ -79,6 +79,7 @@ var coreReq = {
   art12a: "CI2",
   clas12a: "CI2",
   arth152: "CI3",
+  poli50: "CI3",
   poli2: ["social science", "CI3"],
   soci135: "CI3",
   rsoc9:"rtc1",
