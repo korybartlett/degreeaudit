@@ -50,21 +50,33 @@ function generateCSV() {
 }
 
 function generateReport(){
+
+
   var output = "";
   var cnt = 0;
   $("#tb1 tr").each(function(){
     $(this).find('td').each(function(){
-      temp = ($(this).html());
+      temp = ($(this));
       //for (var x in majorReq){
-      if (!temp.includes("(")){
-        output = output.concat(temp+"\t");
-        //cnt+=1;
+      // if (!temp.includes("(")){
+      //   output = output.concat(temp+"\t");
+      //   //cnt+=1;
+      // }
+      // //for (var y in coreReq){
+      // else if (!temp.includes("(")){
+      //   output = output.concat(temp+"\t");
+      //   //cnt+=1;
+      // }
+      if(temp.text().trim().length){
+        //console.log("found unmet");
+        //temp.text('test');
+        $(this).toggleClass("thickerBorder");
       }
-      //for (var y in coreReq){
-      else if (!temp.includes("(")){
-        output = output.concat(temp+"\t");
-        //cnt+=1;
+      
+      if (temp.text().includes("(")){
+        $(this).removeClass("thickerBorder");
       }
+
     })
   });
   output = output.concat("\n");
@@ -173,6 +185,7 @@ function addMajorCourse (userInput) {
     var button = '<button type="reset" value="reset" onclick="resetElectBox(\''+tdElement+'\')">X</button>'
     $( "td:contains('" + reqMet + "')" ).css("background-color", "#228B22");
     $( "td:contains('" + reqMet + "')" ).append(" ("+userInput+") "+button);
+    $( "td:contains('" + reqMet + "')" ).removeClass();
     count++;
   }
   else {
@@ -182,7 +195,7 @@ function addMajorCourse (userInput) {
     $( "td:contains('" + userInput + "')" ).first().css("background-color", "#228B22");
     //finds user input in html table data, appends the users class to the row
     $( "td:contains('" + userInput + "')" ).first().append(" ("+userInput+") "+button);
-    //add classes as they are input to object
+    $( "td:contains('" + reqMet + "')" ).removeClass();
   }
   tableObj.reqSat.push(reqMet);
   tableObj.major.push(userInput);
@@ -210,7 +223,7 @@ function addCoreCourse (userInput) {
           }
              
         }
-        
+
         continue;
       }
 
@@ -220,6 +233,7 @@ function addCoreCourse (userInput) {
   else {
     if (coreReqCheck(userInput, reqMet)) {
       addEnrich(userInput)
+      console.log("hitting reAdd");
       return;
     }
 
@@ -229,7 +243,7 @@ function addCoreCourse (userInput) {
 
   tableObj.core.push(userInput);
 
-  //console.log(tableObj.core + " *post add core classes");
+  console.log(tableObj.core + " *post add core classes");
   //console.log(tableObj.reqSat + " *req satisfied obj");
 }
 
@@ -240,6 +254,7 @@ function coreHTMLInject(userInput, reqMet) {
     $( "td:contains('" + reqMet + "')" ).css("background-color", "#228B22");
     //finds user input in html table data, appends the users class to the row
     $( "td:contains('" + reqMet + "')" ).append(" ("+userInput+") "+button);
+    $( "td:contains('" + reqMet + "')" ).removeClass();
     //add classes as they are input to object
     tableObj.reqSat.push(reqMet);
 }
@@ -250,14 +265,19 @@ function addEnrich(userInput){
     return;
   }
   EE = EE.concat(userInput+", ");
+  tableObj.enrich.push(userInput);
   var button = '<button type="reset" value="reset" onclick="resetEEBox(\''+userInput+'\')">X</button>';
   $( "td:empty" ).first().append(userInput + "  " + button);
+  console.log(tableObj.enrich)
 }
 
 function resetEEBox(userInput){
   //console.log(userInput);
-  $( "td:contains('" + userInput + "')" ).last().text('');
+  $( "td:contains('" + userInput + "')" ).text('');
   EE = EE.replace(userInput+",", "")
+  var index = tableObj.enrich.indexOf(userInput);
+  tableObj.enrich.splice(index, 1);
+  console.log(tableObj.enrich)
 }
 
 function resetBox(tdElement){
@@ -279,6 +299,7 @@ function resetBox(tdElement){
   console.log(tableObj.major + " *post delete major classes");
   console.log(tableObj.reqSat + " *req satisfied obj");
   //write function to reinitialize box
+    enrichReAdd();
 
 }
 
@@ -303,6 +324,7 @@ function resetElectBox(tdElement) {
 
   //console.log(tableObj.major + " *post delete major classes");
   //console.log(tableObj.reqSat + " *req satisfied obj");
+    enrichReAdd();
 
 }
 
@@ -397,7 +419,7 @@ function resetCoreBox(tdElement){
     }
   }
 
-
+  enrichReAdd();
   //console.log(tableObj.reqSat + " req obj");
 }
 
@@ -413,6 +435,27 @@ function reAdd(course, reqMet){
   //add classes as they are input to object
   tableObj.reqSat.push(reqMet);
   console.log(tableObj.reqSat + " readded reqs");
+}
+
+function enrichReAdd (){
+  console.log("in readd")
+  var size = tableObj.enrich.length;
+  for(var i=0;i<size;i++){
+    var course = tableObj.enrich[i];
+    console.log(course);
+    if(majorReq[course]){
+        resetEEBox(course);
+        addMajorCourse(course);
+    }
+    else if(coreReq[course]) {
+      //console.log("add and remove");
+      resetEEBox(course);
+      addCoreCourse(course);
+    }
+    else{
+      continue;
+    }
+  }
 }
 
 function majorReqCheck (userInput, reqMet) {
