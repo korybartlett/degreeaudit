@@ -189,13 +189,14 @@ function addMajorCourse (userInput) {
     count++;
   }
   else {
-    var tdElement = userInput + " (" + userInput + ")"
+    var tdElement = reqMet + " (" + userInput + ")"
     var button = '<button type="reset" value="reset" onclick="resetBox(\''+tdElement+'\')">X</button>'
     //finds user input in html table data, changes color to green
-    $( "td:contains('" + userInput + "')" ).first().css("background-color", "#228B22");
+    $("td").filter(function() {return $(this).text() === reqMet;}).css("background-color", "#228B22");
     //finds user input in html table data, appends the users class to the row
-    $( "td:contains('" + userInput + "')" ).first().append(" ("+userInput+") "+button);
-    $( "td:contains('" + reqMet + "')" ).removeClass();
+    $("td").filter(function() {return $(this).text() === reqMet;}).css("background-color", "#228B22");
+    $("td").filter(function() {return $(this).text() === reqMet;}).append(" ("+userInput+") "+button);
+    $("td").filter(function() {return $(this).text() === reqMet;}).removeClass();
   }
   tableObj.reqSat.push(reqMet);
   tableObj.major.push(userInput);
@@ -251,10 +252,10 @@ function coreHTMLInject(userInput, reqMet) {
     var tdElement = reqMet + " (" + userInput + ")"
     var button = '<button type="reset" value="reset" onclick="resetCoreBox(\''+tdElement+'\')">X</button>'
     //finds user input in html table data, changes color to green
-    $( "td:contains('" + reqMet + "')" ).css("background-color", "#228B22");
+    $("td").filter(function() {return $(this).text() === reqMet;}).css("background-color", "#228B22");
     //finds user input in html table data, appends the users class to the row
-    $( "td:contains('" + reqMet + "')" ).append(" ("+userInput+") "+button);
-    $( "td:contains('" + reqMet + "')" ).removeClass();
+    $("td").filter(function() {return $(this).text() === reqMet;}).append(" ("+userInput+") "+button);
+    $("td").filter(function() {return $(this).text() === reqMet;}).removeClass();
     //add classes as they are input to object
     tableObj.reqSat.push(reqMet);
 }
@@ -284,9 +285,10 @@ function resetBox(tdElement){
   //console.log(tdElement);
   //gets original tdElement requirement text
   var originalValue = tdElement.split("(");
+  console.log(tdElement);
   var course = originalValue[1].substring(0, originalValue[1].length-1);
   originalValue = originalValue[0].substring(0, originalValue[0].length-1);
-  //console.log(originalValue);
+  console.log(originalValue);
   $( "td:contains('" + tdElement + "')" ).css("background-color", "#FF6347");
   //$( "td:contains('" + tdElement + "')" ).text('');
   $( "td:contains('" + tdElement + "')" ).text(originalValue);
@@ -299,7 +301,7 @@ function resetBox(tdElement){
   console.log(tableObj.major + " *post delete major classes");
   console.log(tableObj.reqSat + " *req satisfied obj");
   //write function to reinitialize box
-    enrichReAdd();
+  enrichReAdd();
 
 }
 
@@ -324,8 +326,7 @@ function resetElectBox(tdElement) {
 
   //console.log(tableObj.major + " *post delete major classes");
   //console.log(tableObj.reqSat + " *req satisfied obj");
-    enrichReAdd();
-
+  enrichReAdd();
 }
 
 
@@ -438,12 +439,13 @@ function reAdd(course, reqMet){
 }
 
 function enrichReAdd (){
-  console.log("in readd")
   var size = tableObj.enrich.length;
   for(var i=0;i<size;i++){
     var course = tableObj.enrich[i];
     console.log(course);
     if(majorReq[course]){
+        console.log("in readd");
+
         resetEEBox(course);
         addMajorCourse(course);
     }
@@ -461,18 +463,18 @@ function enrichReAdd (){
 function majorReqCheck (userInput, reqMet) {
   //if reqMet comes back undefined then requirement not available in list
   if(typeof(reqMet) === 'undefined'){
-    alert("not in major reqs!");
+    //alert("not in major reqs!");
     return true;
   }
 
   //function $.inArray returns index of value, -1 if not found in array
   if(tableObj.major.includes(userInput)){
-    alert("class: "+ userInput+" already added");
+    //alert("class: "+ userInput+" already added");
     return true;
   }
 
   if(tableObj.reqSat.includes(reqMet)){
-    alert("requirment: "+reqMet+" already satisfied");
+    //alert("requirment: "+reqMet+" already satisfied");
     return true;
   }
 
@@ -483,18 +485,18 @@ function coreReqCheck(userInput, reqMet){
   //if reqMet comes back undefined then requirement not available in list
   //console.log(reqMet);
   if(typeof(reqMet) === 'undefined'){
-    alert("not in core reqs!");
+    //alert("not in core reqs!");
     return true;
   }
 
   if(tableObj.core.includes(userInput)){
-    alert("class: "+ userInput+" already added");
+    //alert("class: "+ userInput+" already added");
     return true;
   }
 
   //console.log(reqMet);
   if(tableObj.reqSat.includes(reqMet)){
-    alert("requirment: "+reqMet+" already satisfied");
+    //alert("requirment: "+reqMet+" already satisfied");
     return true;
   }
 
@@ -507,6 +509,13 @@ $(document).keypress(function(ev){
     textGrab();
   }
 });
+
+
+
+$(function() {
+  $( "#userCourse" ).autocomplete({source: availableClasses});
+});
+
 
 /*
 

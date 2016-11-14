@@ -7,6 +7,9 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script type="text/javascript" src="js/requirements.js"></script>
   <script type="text/javascript" src="js/index.js"></script>
+  <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 </head>
 <body>
   <h1>Degree Progress Report</h1>
@@ -24,72 +27,72 @@
       <th>Educational Enrichment</th>
     </tr>
     <tr>
-      <td>engr1</td>
-      <td>coen122</td>
-      <td>math11</td>
+      <td>engr 1</td>
+      <td>coen 122</td>
+      <td>math 11</td>
       <td>CTW1</td>
       <td></td>
     </tr>
     <tr>
-      <td>coen10</td>
-      <td>coen146</td>
-      <td>math12</td>
+      <td>coen 10</td>
+      <td>coen 146</td>
+      <td>math 12</td>
       <td>CTW2</td>
       <td></td>
     </tr>
     <tr>
-      <td>coen11</td>
-      <td>coen171</td>
-      <td>math13</td>
+      <td>coen 11</td>
+      <td>coen 171</td>
+      <td>math 13</td>
       <td>social science</td>
       <td></td>
     </tr>
     <tr>
-      <td>coen12</td>
-      <td>coen174</td>
-      <td>math14</td>
+      <td>coen 12</td>
+      <td>coen 174</td>
+      <td>math 14</td>
       <td>CI1</td>
       <td></td>
     </tr>
     <tr>
-      <td>coen19</td>
-      <td>coen175</td>
+      <td>coen 19</td>
+      <td>coen 175</td>
       <td>math elective</td>
       <td>CI2</td>
       <td></td>
     </tr>
     <tr>
-      <td>coen20</td>
-      <td>coen177</td>
-      <td>amth106</td>
+      <td>coen 20</td>
+      <td>coen 177</td>
+      <td>amth 106</td>
       <td>CI3</td>
       <td></td>
     </tr>
     <tr>
-      <td>coen21</td>
-      <td>coen179</td>
-      <td>amth108</td>
+      <td>coen 21</td>
+      <td>coen 179</td>
+      <td>amth 108</td>
       <td>rtc1</td>
       <td></td>
     </tr>
     <tr>
-      <td>coen70</td>
-      <td>coen194</td>
-      <td>phys31</td>
+      <td>coen 70</td>
+      <td>coen 194</td>
+      <td>phys 31</td>
       <td>rtc2</td>
       <td></td>
     </tr>
     <tr>
-      <td>elen50</td>
-      <td>coen195</td>
-      <td>phys32</td>
+      <td>elen 50</td>
+      <td>coen 195</td>
+      <td>phys 32</td>
       <td>rtc3</td>
       <td></td>      
     </tr>
     <tr>
       <td> </td>
-      <td>coen196</td>
-      <td>phys33</td>
+      <td>coen 196</td>
+      <td>phys 33</td>
       <td>ethics</td>
       <td></td>
     </tr>
@@ -125,17 +128,13 @@
       <td> </td>
       <td> </td>
       <td> </td>
-      <td>engl181</td>
+      <td>engineering communications</td>
       <td></td>
     </tr>
   </table>
   <div class="generateBar">
-    <input type="button" id="generatebtn" value="Generate Progress Report" onclick="myFunction()">
+    <input type="button" id="generatebtn" value="Show Unmet Requirements" onclick="generateReport()">
     <script>
-      function myFunction(){
-      var output = generateReport();
-      window.alert(output);
-      }
     </script>
     <!--<button type="button" id="generatebtn">Generate Progress Report</button>-->
   </div>
