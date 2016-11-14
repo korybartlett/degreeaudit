@@ -410,7 +410,7 @@ function resetCoreBox(tdElement){
       $("#tb1 tr").each(function(){
         $(this).find('td').each(function(){
           temp = ($(this));
-          if(!temp.hasClass("thickerBorder")){
+          if(!temp.hasClass("thickerBorder") && temp.text().trim().length){
             console.log("found temp");
             flag = 1;
             $("td").filter(function() {return $(this).text() === reqSplit;}).removeClass();
@@ -456,7 +456,7 @@ function resetCoreBox(tdElement){
     $("#tb1 tr").each(function(){
         $(this).find('td').each(function(){
           temp = ($(this));
-          if(!temp.hasClass("thickerBorder")){
+          if(!temp.hasClass("thickerBorder") && temp.text().trim().length){
             console.log("found temp");
             flag = 1;
             $("td").filter(function() {return $(this).text() === reqSplit;}).removeClass();
