@@ -17,7 +17,7 @@ input {
 
 .thickerBorder{
   border-width: medium;
-  color: #FFFF99;
+  /*color: #FFFF99;*/
 }
 
 #savebtn {

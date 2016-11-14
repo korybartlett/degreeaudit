@@ -182,21 +182,22 @@ function addMajorCourse (userInput) {
 
     reqMet = reqMet + " " + count;
     var tdElement = reqMet + " (" + userInput + ")";
+    $( "td:contains('" + reqMet + "')" ).removeClass();
     var button = '<button type="reset" value="reset" onclick="resetElectBox(\''+tdElement+'\')">X</button>'
     $( "td:contains('" + reqMet + "')" ).css("background-color", "#228B22");
     $( "td:contains('" + reqMet + "')" ).append(" ("+userInput+") "+button);
-    $( "td:contains('" + reqMet + "')" ).removeClass();
+    
     count++;
   }
   else {
     var tdElement = reqMet + " (" + userInput + ")"
+    $("td").filter(function() {return $(this).text() === reqMet;}).removeClass();
     var button = '<button type="reset" value="reset" onclick="resetBox(\''+tdElement+'\')">X</button>'
     //finds user input in html table data, changes color to green
     $("td").filter(function() {return $(this).text() === reqMet;}).css("background-color", "#228B22");
     //finds user input in html table data, appends the users class to the row
-    $("td").filter(function() {return $(this).text() === reqMet;}).css("background-color", "#228B22");
     $("td").filter(function() {return $(this).text() === reqMet;}).append(" ("+userInput+") "+button);
-    $("td").filter(function() {return $(this).text() === reqMet;}).removeClass();
+    
   }
   tableObj.reqSat.push(reqMet);
   tableObj.major.push(userInput);
@@ -250,12 +251,13 @@ function addCoreCourse (userInput) {
 
 function coreHTMLInject(userInput, reqMet) {
     var tdElement = reqMet + " (" + userInput + ")"
+    $("td").filter(function() {return $(this).text() === reqMet;}).removeClass();
     var button = '<button type="reset" value="reset" onclick="resetCoreBox(\''+tdElement+'\')">X</button>'
     //finds user input in html table data, changes color to green
     $("td").filter(function() {return $(this).text() === reqMet;}).css("background-color", "#228B22");
     //finds user input in html table data, appends the users class to the row
     $("td").filter(function() {return $(this).text() === reqMet;}).append(" ("+userInput+") "+button);
-    $("td").filter(function() {return $(this).text() === reqMet;}).removeClass();
+    
     //add classes as they are input to object
     tableObj.reqSat.push(reqMet);
 }
@@ -310,7 +312,6 @@ function resetElectBox(tdElement) {
   var majorCourse = originalValue[1].substring(0, originalValue[1].length-1);
   //saves requirement
   originalValue = originalValue[0].substring(0, originalValue[0].length-1);
-
   $( "td:contains('" + tdElement + "')" ).css("background-color", "#FF6347");
   $( "td:contains('" + tdElement + "')" ).text(originalValue);
   //deletes user input class from list of major classes
