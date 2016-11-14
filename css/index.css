@@ -27,6 +27,7 @@ input {
 .generateBar {
   text-align: center;
   margin: 0 auto;
+  /*font-size: 1em;*/
 }
 
 table {

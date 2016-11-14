@@ -67,6 +67,10 @@ function generateReport(){
       //   output = output.concat(temp+"\t");
       //   //cnt+=1;
       // }
+      if(temp.hasClass("EduEnrich")){
+        return true;
+      }
+
       if(temp.text().trim().length){
         //console.log("found unmet");
         //temp.text('test');
@@ -287,10 +291,12 @@ function resetBox(tdElement){
   //console.log(tdElement);
   //gets original tdElement requirement text
   var originalValue = tdElement.split("(");
-  console.log(tdElement);
+  //console.log(tdElement);
   var course = originalValue[1].substring(0, originalValue[1].length-1);
   originalValue = originalValue[0].substring(0, originalValue[0].length-1);
   console.log(originalValue);
+  //$("td").filter(function() {return $(this).text() === originalValue;}).addClass("thickerBorder");
+  $( "td:contains('" + tdElement + "')" ).addClass("thickerBorder");
   $( "td:contains('" + tdElement + "')" ).css("background-color", "#FF6347");
   //$( "td:contains('" + tdElement + "')" ).text('');
   $( "td:contains('" + tdElement + "')" ).text(originalValue);
@@ -312,6 +318,7 @@ function resetElectBox(tdElement) {
   var majorCourse = originalValue[1].substring(0, originalValue[1].length-1);
   //saves requirement
   originalValue = originalValue[0].substring(0, originalValue[0].length-1);
+  $( "td:contains('" + tdElement + "')" ).addClass("thickerBorder");
   $( "td:contains('" + tdElement + "')" ).css("background-color", "#FF6347");
   $( "td:contains('" + tdElement + "')" ).text(originalValue);
   //deletes user input class from list of major classes
@@ -357,6 +364,7 @@ function resetCoreBox(tdElement){
       //console.log(htmlText + " html text");
       var textSplit = htmlText.split("(");
       reqSplit = textSplit[0].substring(0, textSplit[0].length-1);
+      $( "td:contains('" + htmlText + "')" ).addClass("thickerBorder");
       $( "td:contains('" + htmlText + "')" ).first().css("background-color", "#FF6347");
       //$( "td:contains('" + tdElement + "')" ).text('');
       //console.log(course);
@@ -392,6 +400,7 @@ function resetCoreBox(tdElement){
     //console.log(htmlText + " html text");
     var textSplit = htmlText.split("(");
     reqSplit = textSplit[0].substring(0, textSplit[0].length-1);
+    $( "td:contains('" + course + "')" ).addClass("thickerBorder");
     $( "td:contains('" + course + "')" ).first().css("background-color", "#FF6347");
     //$( "td:contains('" + tdElement + "')" ).text('');
     //console.log(originalReq);
@@ -430,6 +439,7 @@ function resetCoreBox(tdElement){
 function reAdd(course, reqMet){
   var tdElement = reqMet + " (" + course + ")";
   var button = '<button type="reset" value="reset" onclick="resetCoreBox(\''+tdElement+'\')">X</button>';
+  $("td").filter(function() {return $(this).text() === reqMet;}).removeClass();
   //finds user input in html table data, changes color to green
   $( "td:contains('" + reqMet + "')" ).css("background-color", "#00b33c");
   //finds user input in html table data, appends the users class to the row
