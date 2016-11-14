@@ -54,3 +54,9 @@ body {
 footer{
   text-align: center;
 }
+
+.ui-autocomplete { 
+  height: 300px; 
+  overflow-y: scroll; 
+  overflow-x: hidden;
+}
