@@ -60,3 +60,7 @@ footer{
   overflow-y: scroll; 
   overflow-x: hidden;
 }
+
+h3 {
+  margin: 0px;
+}

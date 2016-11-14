@@ -184,7 +184,7 @@ function addMajorCourse (userInput) {
     var tdElement = reqMet + " (" + userInput + ")";
     $( "td:contains('" + reqMet + "')" ).removeClass();
     var button = '<button type="reset" value="reset" onclick="resetElectBox(\''+tdElement+'\')">X</button>'
-    $( "td:contains('" + reqMet + "')" ).css("background-color", "#228B22");
+    $( "td:contains('" + reqMet + "')" ).css("background-color", "#00b33c");
     $( "td:contains('" + reqMet + "')" ).append(" ("+userInput+") "+button);
     
     count++;
@@ -194,7 +194,7 @@ function addMajorCourse (userInput) {
     $("td").filter(function() {return $(this).text() === reqMet;}).removeClass();
     var button = '<button type="reset" value="reset" onclick="resetBox(\''+tdElement+'\')">X</button>'
     //finds user input in html table data, changes color to green
-    $("td").filter(function() {return $(this).text() === reqMet;}).css("background-color", "#228B22");
+    $("td").filter(function() {return $(this).text() === reqMet;}).css("background-color", "#00b33c");
     //finds user input in html table data, appends the users class to the row
     $("td").filter(function() {return $(this).text() === reqMet;}).append(" ("+userInput+") "+button);
     
@@ -254,7 +254,7 @@ function coreHTMLInject(userInput, reqMet) {
     $("td").filter(function() {return $(this).text() === reqMet;}).removeClass();
     var button = '<button type="reset" value="reset" onclick="resetCoreBox(\''+tdElement+'\')">X</button>'
     //finds user input in html table data, changes color to green
-    $("td").filter(function() {return $(this).text() === reqMet;}).css("background-color", "#228B22");
+    $("td").filter(function() {return $(this).text() === reqMet;}).css("background-color", "#00b33c");
     //finds user input in html table data, appends the users class to the row
     $("td").filter(function() {return $(this).text() === reqMet;}).append(" ("+userInput+") "+button);
     
@@ -431,7 +431,7 @@ function reAdd(course, reqMet){
   var tdElement = reqMet + " (" + course + ")";
   var button = '<button type="reset" value="reset" onclick="resetCoreBox(\''+tdElement+'\')">X</button>';
   //finds user input in html table data, changes color to green
-  $( "td:contains('" + reqMet + "')" ).css("background-color", "#228B22");
+  $( "td:contains('" + reqMet + "')" ).css("background-color", "#00b33c");
   //finds user input in html table data, appends the users class to the row
   $( "td:contains('" + reqMet + "')" ).append(" ("+course+") "+button);
   //add classes as they are input to object
