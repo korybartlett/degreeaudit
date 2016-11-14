@@ -309,6 +309,17 @@ function resetBox(tdElement){
   console.log(tableObj.major + " *post delete major classes");
   console.log(tableObj.reqSat + " *req satisfied obj");
   //write function to reinitialize box
+  $("#tb1 tr").each(function(){
+      $(this).find('td').each(function(){
+        temp = ($(this));
+        if(!temp.hasClass("thickerBorder")){
+          console.log("found temp");
+          flag = 1;
+          $("td").filter(function() {return $(this).text() === originalValue;}).removeClass();
+        }
+    })
+  });
+
   enrichReAdd();
 
 }
@@ -334,6 +345,17 @@ function resetElectBox(tdElement) {
 
   //console.log(tableObj.major + " *post delete major classes");
   //console.log(tableObj.reqSat + " *req satisfied obj");
+
+  $("#tb1 tr").each(function(){
+      $(this).find('td').each(function(){
+        temp = ($(this));
+        if(!temp.hasClass("thickerBorder")){
+          console.log("found temp");
+          flag = 1;
+          $("td").filter(function() {return $(this).text() === originalValue;}).removeClass();
+        }
+    })
+  });
   enrichReAdd();
 }
 
@@ -350,6 +372,7 @@ function resetCoreBox(tdElement){
   var reqMet = coreReq[course];
   //console.log(reqMet);
   var numReqMet = coreReq[course].length;
+  var flag = 0;
   //console.log(typeof(reqMet));
   if(numReqMet > 1 && typeof(reqMet)=='object') {
     for(var k=0;k<numReqMet;k++){
@@ -364,7 +387,10 @@ function resetCoreBox(tdElement){
       //console.log(htmlText + " html text");
       var textSplit = htmlText.split("(");
       reqSplit = textSplit[0].substring(0, textSplit[0].length-1);
+
+
       $( "td:contains('" + htmlText + "')" ).addClass("thickerBorder");
+
       $( "td:contains('" + htmlText + "')" ).first().css("background-color", "#FF6347");
       //$( "td:contains('" + tdElement + "')" ).text('');
       //console.log(course);
@@ -374,10 +400,26 @@ function resetCoreBox(tdElement){
       //console.log(tableObj.reqSat + " *req satisfied obj");
       var index = tableObj.core.indexOf(course);
       console.log(index + "*index");
-      
       if (index > -1){
         tableObj.core.splice(index, 1);
       }
+
+
+
+
+      $("#tb1 tr").each(function(){
+        $(this).find('td').each(function(){
+          temp = ($(this));
+          if(!temp.hasClass("thickerBorder")){
+            console.log("found temp");
+            flag = 1;
+            $("td").filter(function() {return $(this).text() === reqSplit;}).removeClass();
+          }
+        })
+      });
+
+
+
 
       console.log(tableObj.core + " *post  delete core classes");
       //delReq = delReq + " " + reqSplit;
@@ -391,6 +433,10 @@ function resetCoreBox(tdElement){
       console.log(index +" *index of reqsaved");
       tableObj.reqSat.splice(index, 1);
       console.log(tableObj.reqSat + " *post delete reqsaved");
+
+      // if(flag == 1){
+      //   $("td").filter(function() {return $(this).text() === reqSplit;}).removeClass();
+      // }
     }
   }
   else {
@@ -405,6 +451,19 @@ function resetCoreBox(tdElement){
     //$( "td:contains('" + tdElement + "')" ).text('');
     //console.log(originalReq);
     $( "td:contains('" + course + "')" ).first().text(reqSplit);
+    
+
+    $("#tb1 tr").each(function(){
+        $(this).find('td').each(function(){
+          temp = ($(this));
+          if(!temp.hasClass("thickerBorder")){
+            console.log("found temp");
+            flag = 1;
+            $("td").filter(function() {return $(this).text() === reqSplit;}).removeClass();
+          }
+      })
+    });
+
     //removes item from array
     var index = tableObj.core.indexOf(course);
     tableObj.core.splice(index, 1);
@@ -432,6 +491,11 @@ function resetCoreBox(tdElement){
 
   enrichReAdd();
   //console.log(tableObj.reqSat + " req obj");
+
+  // if(flag == 1){
+  //   console.log("remove")
+  //   $("td").filter(function() {return $(this).text() === reqSplit;}).removeClass();
+  // }
 }
 
 //function checks if requirement removed can be satisfied by a double dipper that is currently in list 
