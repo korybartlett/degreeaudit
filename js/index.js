@@ -410,7 +410,8 @@ function resetCoreBox(tdElement){
       $("#tb1 tr").each(function(){
         $(this).find('td').each(function(){
           temp = ($(this));
-          if(!temp.hasClass("thickerBorder") && temp.text().trim().length > 1 && temp.text().indexOf(reqSplit) > 0){
+          /*does NOT Work properly still*/
+          if(!temp.hasClass("thickerBorder") && temp.text().trim().length > 1){
             console.log("found temp!!!!"+k);
             console.log(temp.text())
             console.log(reqSplit +" reqSplit")
