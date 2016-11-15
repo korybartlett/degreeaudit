@@ -8,6 +8,7 @@ var majorReq = {
   coen19: "coen 19",
   coen20: "coen 20",
   coen21: "coen 21",
+  elen21: "coen 21",
   coen70: "coen 70",
   //Upper Div COEN Req
   coen122: "coen 122",
