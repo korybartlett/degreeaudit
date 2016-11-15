@@ -7,7 +7,8 @@ h1 {
 }
 
 .userInput {
-  text-align: left;
+  text-align: center;
+  padding-bottom: 10px;
 }
 
 input {
@@ -20,14 +21,24 @@ input {
   /*color: #FFFF99;*/
 }
 
+#submitButton{
+  padding: 1em;
+}
+
 #savebtn {
-  align: right;
+  text-align: center;
+  margin: 0 auto;
+  padding-top: 40px;
 }
 
 .generateBar {
   text-align: center;
   margin: 0 auto;
-  /*font-size: 1em;*/
+}
+
+#generatebtn {
+/*  padding: 1em;*/
+  font-size: 16px;
 }
 
 table {

@@ -14,11 +14,10 @@
 <body>
   <h1>Degree Progress Report</h1>
   <div class="userInput">
-    <h3 for="tags">Classes Input: </h3>
+    <h3>Classes Input</h3>
     <input type="text" name="course" id="userCourse" placeholder="Example: coen10">
     <input type="button" value="Enter" id="submitButton" onclick="textGrab()">
   </div>
-  <button type="button" id="savebtn" onclick="generateCSV()">Save</button>
   <table id="tb1" align="center">
     <tr>
       <th>Major (Lower Div)</th>
@@ -135,9 +134,9 @@
   </table>
   <div class="generateBar">
     <input type="button" id="generatebtn" value="Show Unmet Requirements" onclick="generateReport()">
-    <script>
-    </script>
-    <!--<button type="button" id="generatebtn">Generate Progress Report</button>-->
+  </div>
+  <div id="savebtn">
+    <button type="button"  onclick="generateCSV()">Save</button>
   </div>
   <div>
     <footer>

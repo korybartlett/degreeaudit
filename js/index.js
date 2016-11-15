@@ -267,10 +267,10 @@ function coreHTMLInject(userInput, reqMet) {
 }
 
 function addEnrich(userInput){
-  if(EE.includes(userInput)){
-    alert("Educational enrichment already added");
-    return;
-  }
+  // if(EE.includes(userInput)){
+  //   alert("Educational enrichment already added");
+  //   return;
+  // }
   EE = EE.concat(userInput+", ");
   tableObj.enrich.push(userInput);
   var button = '<button type="reset" value="reset" onclick="resetEEBox(\''+userInput+'\')">X</button>';
@@ -280,7 +280,7 @@ function addEnrich(userInput){
 
 function resetEEBox(userInput){
   //console.log(userInput);
-  $( "td:contains('" + userInput + "')" ).text('');
+  $( "td:contains('" + userInput + "')" ).last().text('');
   EE = EE.replace(userInput+",", "")
   var index = tableObj.enrich.indexOf(userInput);
   tableObj.enrich.splice(index, 1);
@@ -370,7 +370,7 @@ function resetCoreBox(tdElement){
   var originalReq = originalValue[0].substring(0, originalValue[0].length-1);
   var course = originalValue[1].substring(0, originalValue[1].length-1);
   var reqMet = coreReq[course];
-  //console.log(reqMet);
+  //nsole.log(reqMet);
   var numReqMet = coreReq[course].length;
   var flag = 0;
   //console.log(typeof(reqMet));
@@ -386,10 +386,10 @@ function resetCoreBox(tdElement){
       }
       //console.log(htmlText + " html text");
       var textSplit = htmlText.split("(");
+      //console.log(textSplit)
       reqSplit = textSplit[0].substring(0, textSplit[0].length-1);
-
-
-      $( "td:contains('" + htmlText + "')" ).addClass("thickerBorder");
+      //console.log(reqSplit);
+      $( "td:contains('" + reqSplit + "')" ).addClass("thickerBorder");
 
       $( "td:contains('" + htmlText + "')" ).first().css("background-color", "#FF6347");
       //$( "td:contains('" + tdElement + "')" ).text('');
@@ -410,8 +410,10 @@ function resetCoreBox(tdElement){
       $("#tb1 tr").each(function(){
         $(this).find('td').each(function(){
           temp = ($(this));
-          if(!temp.hasClass("thickerBorder") && temp.text().trim().length > 0 && k == numReqMet){
-            console.log("found temp!!!!");
+          if(!temp.hasClass("thickerBorder") && temp.text().trim().length > 1 && temp.text().indexOf(reqSplit) > 0){
+            console.log("found temp!!!!"+k);
+            console.log(temp.text())
+            console.log(reqSplit +" reqSplit")
             flag = 1;
             $("td").filter(function() {return $(this).text() === reqSplit;}).removeClass();
           }
