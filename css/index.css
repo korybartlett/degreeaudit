@@ -1,5 +1,5 @@
 /*
-  red = #FF6347
+  red = #ff9980
 */
 h1 {
   text-align: center;
@@ -22,7 +22,8 @@ input {
 }
 
 #submitButton{
-  padding: 1em;
+/*   padding: 10px; */
+  height: 22px;
 }
 
 #savebtn {
@@ -39,6 +40,7 @@ input {
 #generatebtn {
 /*  padding: 1em;*/
   font-size: 16px;
+  height: 22px;
 }
 
 table {
@@ -52,15 +54,15 @@ table, th, td {
 }
 
 th {
-  background-color: #FFF8DC;
+  background-color: #ffffff;
 }
 
 tr {
-  background-color: #FF6347;
+  background-color: #ff9980;
 }
 
 body {
-  background-color: #FFF8DC;
+/*   background-color: #FFF8DC; */
 }
 
 footer{
