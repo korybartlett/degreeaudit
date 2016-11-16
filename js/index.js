@@ -1,6 +1,13 @@
+/* 
+file ONLY contains index page functionality
+requirements have been moved seperate file for clarity
+*/
+
+//declaring global variables used
 var count = 1;
 var EE="";
 
+//declaring global objects used
 var tableObj = {
   major: [],
   core: [],
@@ -8,16 +15,21 @@ var tableObj = {
   enrich: []
 }
 
+
 $(document).ready(function() {
+  //loads CSV via local storage
   var data = localStorage.getItem('oldData');
+  //if info found, calls load data function
   if (data) {
     loadData(data);
   }
+  //logs if no data returned
   else{
     console.log("no data returned");
   }
 });
 
+//Create CSV
 function generateCSV() {
 
   //create CSV file
@@ -49,9 +61,8 @@ function generateCSV() {
 
 }
 
+//generate report via bolded boxes
 function generateReport(){
-
-
   var output = "";
   var cnt = 0;
   $("#tb1 tr").each(function(){
@@ -67,16 +78,17 @@ function generateReport(){
       //   output = output.concat(temp+"\t");
       //   //cnt+=1;
       // }
+      //ignores educational enrichment boxes, continues to next table element 
       if(temp.hasClass("EduEnrich")){
         return true;
       }
-
+      //makes sure table element has text, ignores empty elements
       if(temp.text().trim().length){
-        //console.log("found unmet");
-        //temp.text('test');
+        //add/remove class which makes thicker border to table element
         $(this).toggleClass("thickerBorder");
       }
-      
+
+      //removes thicker border class from elements with course
       if (temp.text().includes("(")){
         $(this).removeClass("thickerBorder");
       }
