@@ -1,3 +1,11 @@
+/*
+JS file must be placed in script before other JS files
+
+file contains objects that are used in system 
+
+last array contains classes for possbile autocomplete option
+*/
+
 var majorReq = {
   //Expected user Input : Requirement
   //Lower Div COEN Req
@@ -114,6 +122,8 @@ var coreReq = {
   elsj22: "experiential learning"
 }
 
+
+//used for autocomplete
 var availableClasses = [
   "engr1",
   "coen10",
@@ -152,6 +162,7 @@ var availableClasses = [
   "elen133",
   "elen134",
   "engl181",
+  "elen21",
   "elen50",
   "elen153",
   "math11",
@@ -212,5 +223,5 @@ var availableClasses = [
   "poli1",
   "mgmt6",
   "anth3",
-  "elsj22"
+  "elsj22",
 ];
