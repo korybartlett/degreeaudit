@@ -1,6 +1,7 @@
 //jQuery
 $(document).ready(function () {
   $("#createbtn").click(function () {
+    localStorage.clear();
     window.location.href ="index.html";
   });
 
