@@ -601,7 +601,7 @@ $(document).keypress(function(ev){
 });
 
 
-
+//autocomplete js funciton
 $(function() {
   $( "#userCourse" ).autocomplete({source: availableClasses});
 });
