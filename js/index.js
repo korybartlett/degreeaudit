@@ -444,54 +444,50 @@ function resetElectBox(tdElement) {
   enrichReAdd();
 }
 
-
+//resets core requirement table elements
 function resetCoreBox(tdElement){
-  //console.log(tdElement);
-  //removes all occurances of poli2 but replaces with poli2
-
-  //gets original tdElement requirement text
+  //gets original requirement from tdElement text
   var delReq = "";
   var originalValue = tdElement.split("(");
   var originalReq = originalValue[0].substring(0, originalValue[0].length-1);
   var course = originalValue[1].substring(0, originalValue[1].length-1);
   var reqMet = coreReq[course];
-  //nsole.log(reqMet);
   var numReqMet = coreReq[course].length;
   var flag = 0;
-  //console.log(typeof(reqMet));
-  if(numReqMet > 1 && typeof(reqMet)=='object') {
+
+  //makes sure the reqMet is an object which means its a double dipper and has more than one requirement
+  if(numReqMet > 1 && typeof(reqMet)=='object') {  
+    //loop runs to cover each requirement of a multi-dipper course
     for(var k=0;k<numReqMet;k++){
-      //console.log(reqMet);
-      //console.log(originalValue);
+      //variable created to locate HTML text found in table corresponding to current class
       var htmlText = $( "td:contains('" + course + "')" ).first().text();
-      //console.log(htmlText);
+      //if the variable returns blank then escape out of loop because class not found in table
       if (htmlText == "") {
-        //console.log("we out here");
         break;
       }
-      //console.log(htmlText + " html text");
+      //follows procedure to filter text to desired elements
       var textSplit = htmlText.split("(");
-      //console.log(textSplit)
       reqSplit = textSplit[0].substring(0, textSplit[0].length-1);
-      //console.log(reqSplit);
+      //adds thicker border incase currently toggled by button
       $( "td:contains('" + reqSplit + "')" ).addClass("thickerBorder");
-
+      //flips the color of the element back to red
       $( "td:contains('" + htmlText + "')" ).first().css("background-color", "#ff9980");
-      //$( "td:contains('" + tdElement + "')" ).text('');
-      //console.log(course);
+      //resets the table element to just the requirement
       $( "td:contains('" + htmlText + "')" ).first().text(reqSplit);
-      //removes item from array
-      console.log(tableObj.core + " *pre delete core classes");
+      
+      //console.log(tableObj.core + " *pre delete core classes");
       //console.log(tableObj.reqSat + " *req satisfied obj");
+      
+      //removes item from array
+      //grabs index of element to remove
       var index = tableObj.core.indexOf(course);
       console.log(index + "*index");
+      //if index -1 the course does not exsist in array
       if (index > -1){
         tableObj.core.splice(index, 1);
       }
 
-
-
-
+      //loops through table to identify if thicker border is currently enabled, removes thicker border class if not enabled
       $("#tb1 tr").each(function(){
         $(this).find('td').each(function(){
           temp = ($(this));
@@ -506,47 +502,45 @@ function resetCoreBox(tdElement){
         })
       });
 
-
-
-
-      console.log(tableObj.core + " *post  delete core classes");
+      //console.log(tableObj.core + " *post  delete core classes");
       //delReq = delReq + " " + reqSplit;
+      //saves the deleted requirement that was removed from the table
       delReq = reqSplit
-      console.log(delReq +" saved req");
-      console.log(tableObj.reqSat + " *pre delete reqsaved");
+      //console.log(delReq +" saved req");
+      //console.log(tableObj.reqSat + " *pre delete reqsaved");
       //console.log(reqMet[k] + " *reqmet");
 
-
+      //removes the requirement from array
       index = tableObj.reqSat.indexOf(reqSplit);
-      console.log(index +" *index of reqsaved");
+      //console.log(index +" *index of reqsaved");
       tableObj.reqSat.splice(index, 1);
-      console.log(tableObj.reqSat + " *post delete reqsaved");
+      //console.log(tableObj.reqSat + " *post delete reqsaved");
 
-      // if(flag == 1){
-      //   $("td").filter(function() {return $(this).text() === reqSplit;}).removeClass();
-      // }
     }
   }
   else {
-  //  console.log(reqMet);
-    //console.log(originalValue);
+    //finds the corresponding HTML element from the class that is going to be removed
     var htmlText = $( "td:contains('" + course + "')" ).first().text();
-    //console.log(htmlText + " html text");
+    //follows procedure to filter text to desired elements
     var textSplit = htmlText.split("(");
     reqSplit = textSplit[0].substring(0, textSplit[0].length-1);
+    //adds thicker border incase currently toggled by button
     $( "td:contains('" + course + "')" ).addClass("thickerBorder");
+    //flips the color of the element back to red
     $( "td:contains('" + course + "')" ).first().css("background-color", "#ff9980");
-    //$( "td:contains('" + tdElement + "')" ).text('');
-    //console.log(originalReq);
+    //resets the table element to just the requirement
     $( "td:contains('" + course + "')" ).first().text(reqSplit);
     
 
+    //Traverses through table's rows
     $("#tb1 tr").each(function(){
         $(this).find('td').each(function(){
           temp = ($(this));
+          //the if statement checks if the thicker border class has been added and ignores empty table elements
           if(!temp.hasClass("thickerBorder") && temp.text().trim().length > 0){
             console.log("found temp");
             flag = 1;
+            //removes class thicker border if the other elements do not have it
             $("td").filter(function() {return $(this).text() === reqSplit;}).removeClass();
           }
       })
@@ -558,21 +552,19 @@ function resetCoreBox(tdElement){
     index = tableObj.reqSat.indexOf(reqMet);
     tableObj.reqSat.splice(index, 1);
     delReq = reqSplit;
-    //console.log(delReq +" saved req");
-    //console.log(tableObj.reqSat + " req obj");
-
   }
 
   console.log(tableObj.core + " *post post delete core classes");
   console.log(tableObj.reqSat + " *req satisfied obj");
-  //check the saved deleted requirement
-  //console.log(delReq);
-
-  //
+ 
+  //check if the requirement that was just deleted can be readded from a course that still exsists in the table
   for(var i = 0; i<tableObj.core.length;i++){
+    //creates variable for course from courses array
     course = tableObj.core[i];
+    //checks if the deleted requirment can be satisfied from another class
     if(coreReq[course].indexOf(delReq) > -1){
       index = coreReq[course].indexOf(delReq);
+      //readds the course to the table 
       reAdd(course, coreReq[course][index])
     }
   }
