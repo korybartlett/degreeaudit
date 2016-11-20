@@ -183,46 +183,57 @@ function textGrab() {
 function addMajorCourse (userInput) {
   //reqMet is requirement(s) satisfied by course
   var reqMet = majorReq[userInput];
-  //returns true if fails check, false if it passes
+  //returns true if fails check so it enters if, false if it passes
   if (majorReqCheck(userInput, reqMet)) {
     return;
   }
 
-
+  //checks if requirement met was a coen elective
   if (reqMet == 'coen elective'){
-    checkReqMet = reqMet + " " + count
-    //console.log(count);
-    //console.log("String checked in array "+checkReqMet)
+    //creates coen elective variable accounting for one of possible three
+    var checkReqMet = reqMet + " " + count
+    //checks current requirements met to adjust current coen elective count
     for(var i = 0; i<tableObj.reqSat.length;i++){
     	checkReqMet = reqMet + " " + count;
+      //if coen elective found, count up
     	if(tableObj.reqSat[i] == checkReqMet){
     		count++;
     	}
     }
 
-     if(EE.includes(userInput)){
-	      console.log("found coen reuse");
-	      resetEEBox(userInput);
-      }
 
+    // if(EE.includes(userInput)){
+    //   console.log("found coen reuse");
+    //   resetEEBox(userInput);
+    // }
+
+    //when coen elect greater than 3 it is added to enrichment
     if (count > 3){
       alert("coen electives already met, will be added to enrichment");
       addEnrich(userInput);
       return;
     }
 
+    //inputting user course and req satisfied into html
     reqMet = reqMet + " " + count;
     var tdElement = reqMet + " (" + userInput + ")";
+    //removes thick border if it still exsits
     $( "td:contains('" + reqMet + "')" ).removeClass();
+    //adds X button functionality to corresponding table data element
     var button = '<button type="reset" value="reset" onclick="resetElectBox(\''+tdElement+'\')">X</button>'
+    //changes background color to green and injuects html
     $( "td:contains('" + reqMet + "')" ).css("background-color", "#adebad");
     $( "td:contains('" + reqMet + "')" ).append(" ("+userInput+") "+button);
-    
+    //increments count to account for added coen elective
     count++;
   }
   else {
+    //inputting user course and req satisfied into html
     var tdElement = reqMet + " (" + userInput + ")"
+    //removes thick border if it still exsits
+    //filter function finds exact match of requirement met corresponding to course input
     $("td").filter(function() {return $(this).text() === reqMet;}).removeClass();
+    //adds X button functionality to corresponding table data element
     var button = '<button type="reset" value="reset" onclick="resetBox(\''+tdElement+'\')">X</button>'
     //finds user input in html table data, changes color to green
     $("td").filter(function() {return $(this).text() === reqMet;}).css("background-color", "#adebad");
@@ -230,6 +241,7 @@ function addMajorCourse (userInput) {
     $("td").filter(function() {return $(this).text() === reqMet;}).append(" ("+userInput+") "+button);
     
   }
+  // pushes requirement and course into major array and requirement array
   tableObj.reqSat.push(reqMet);
   tableObj.major.push(userInput);
 
@@ -237,6 +249,7 @@ function addMajorCourse (userInput) {
  // console.log(tableObj.reqSat + " *req satisfied obj");
 }
 
+//adds major classes to object and html
 function addCoreCourse (userInput) {
   //reqMet is requirement(s) satisfied by course
   var reqMet = coreReq[userInput];
@@ -347,7 +360,7 @@ function resetBox(tdElement){
         }
     })
   });
-
+  //call function at end to see if enrichment should be moved
   enrichReAdd();
 
 }
@@ -384,6 +397,7 @@ function resetElectBox(tdElement) {
         }
     })
   });
+  //call function at end to see if enrichment should be moved
   enrichReAdd();
 }
 
@@ -511,21 +525,23 @@ function resetCoreBox(tdElement){
   //check the saved deleted requirement
   //console.log(delReq);
 
+  //
   for(var i = 0; i<tableObj.core.length;i++){
     course = tableObj.core[i];
     if(coreReq[course].indexOf(delReq) > -1){
-      //console.log("found the reAdd");
       index = coreReq[course].indexOf(delReq);
       reAdd(course, coreReq[course][index])
     }
   }
 
+  //call function at end to see if enrichment should be moved
   enrichReAdd();
 }
 
 //function checks if requirement removed can be satisfied by a double dipper that is currently in list 
 //will change element removed to satisfied
 function reAdd(course, reqMet){
+  //sets up variable to match html text
   var tdElement = reqMet + " (" + course + ")";
   var button = '<button type="reset" value="reset" onclick="resetCoreBox(\''+tdElement+'\')">X</button>';
   $("td").filter(function() {return $(this).text() === reqMet;}).removeClass();
@@ -540,18 +556,21 @@ function reAdd(course, reqMet){
 
 //readds classes from educational enrichments to either major or core classes
 function enrichReAdd (){
+  //gets the size of the enrichment classes array
   var size = tableObj.enrich.length;
   for(var i=0;i<size;i++){
+    //temporaryily saves the enrichment course 
     var course = tableObj.enrich[i];
-    console.log(course);
+    
+    //checks to see if the current list of enrichment classes can be moved to the major or core list
+    //if class fits into another list, then it is removed from enrichment list and added to appropiate group
+    //checks if class fits in to major list
     if(majorReq[course]){
-        console.log("in readd");
-
         resetEEBox(course);
         addMajorCourse(course);
     }
+    //checks if class fits in to core list
     else if(coreReq[course]) {
-      //console.log("add and remove");
       resetEEBox(course);
       addCoreCourse(course);
     }
