@@ -6,6 +6,7 @@ requirements have been moved seperate file for clarity
 //declaring global variables used
 var count = 1;
 var EE="";
+var toggle = 0
 
 //declaring global objects used
 var tableObj = {
@@ -19,6 +20,8 @@ var tableObj = {
 $(document).ready(function() {
   //loads CSV via local storage
   var data = localStorage.getItem('oldData');
+  toggle = 0;
+  console.log(toggle);
   //if info found, calls load data function
   if (data) {
     loadData(data);
@@ -253,19 +256,27 @@ function addMajorCourse (userInput) {
 function addCoreCourse (userInput) {
   //reqMet is requirement(s) satisfied by course
   var reqMet = coreReq[userInput];
+  //gets length of requirements the course fufills 
   var numReqMet = coreReq[userInput].length;
 
+  //makes sure the reqMet is an object which means its a double dipper
   if(numReqMet > 1 && typeof(reqMet)=='object') {
-    var flag = 0;
+    //for loop checks each requirement
     for(var k=0;k<numReqMet;k++){
+      //enters check if course fails check
       if (coreReqCheck(userInput, reqMet[k])) {
-      	
+        //for loop checks current classes being used against potential double dipper class
         for(var i = 0; i<tableObj.core.length;i++){
+          //course variable from list of core classes already in use
           var course = tableObj.core[i];
-          if(coreReq[course] == reqMet[k] && typeof(coreReq[course])!='object'){
+          //check sees if double dipper can replace a single dipper class
+          //checks if added course's requirement has already been satisfied and that if the requirement's course is not a double dipper
+          if(reqMet[k] == coreReq[course] && typeof(coreReq[course])!='object'){
             var remTdElem = reqMet[k] + " (" + course + ")";
+            //single dipper removed and added to enrichments
             resetCoreBox(remTdElem);
             addEnrich(course);
+            //insert double dipper course one requirement at a time
             coreHTMLInject(userInput, reqMet[k]);
           }
              
@@ -273,54 +284,63 @@ function addCoreCourse (userInput) {
 
         continue;
       }
-
+      //adds course and requirement to HTML
       coreHTMLInject(userInput, reqMet[k]);
     }
   }
+  //single dipper classes
   else {
+    //checks course, comes back true if it fails
     if (coreReqCheck(userInput, reqMet)) {
+      //added to enrichment if it fails
       addEnrich(userInput)
-      console.log("hitting reAdd");
       return;
     }
 
+    //inputs core single dipper class into HTML
     coreHTMLInject(userInput, reqMet);
 
   }
 
+  //pushes class entered into core array
   tableObj.core.push(userInput);
-
-  console.log(tableObj.core + " *post add core classes");
+  //console.log(tableObj.core + " *post add core classes");
   //console.log(tableObj.reqSat + " *req satisfied obj");
 }
 
+//inserts the core class into the HTML
 function coreHTMLInject(userInput, reqMet) {
-    var tdElement = reqMet + " (" + userInput + ")"
-    $("td").filter(function() {return $(this).text() === reqMet;}).removeClass();
-    var button = '<button type="reset" value="reset" onclick="resetCoreBox(\''+tdElement+'\')">X</button>'
-    //finds user input in html table data, changes color to green
-    $("td").filter(function() {return $(this).text() === reqMet;}).css("background-color", "#adebad");
-    //finds user input in html table data, appends the users class to the row
-    $("td").filter(function() {return $(this).text() === reqMet;}).append(" ("+userInput+") "+button);
-    
-    //add classes as they are input to object
-    tableObj.reqSat.push(reqMet);
+  //creates variables to input the HTML
+  var tdElement = reqMet + " (" + userInput + ")"
+  $("td").filter(function() {return $(this).text() === reqMet;}).removeClass();
+  var button = '<button type="reset" value="reset" onclick="resetCoreBox(\''+tdElement+'\')">X</button>'
+  //finds user input in html table data, changes color to green
+  $("td").filter(function() {return $(this).text() === reqMet;}).css("background-color", "#adebad");
+  //finds user input in html table data, appends the users class to the row
+  $("td").filter(function() {return $(this).text() === reqMet;}).append(" ("+userInput+") "+button);
+  
+  //add classes as they are input to object
+  tableObj.reqSat.push(reqMet);
 }
 
+//adds educational enrichment to list and injects into HTML
 function addEnrich(userInput){
+  // commented out so that multiple classes can be added to enrichment list and HTML
   // if(EE.includes(userInput)){
   //   alert("Educational enrichment already added");
   //   return;
   // }
+
+  //add enrichment to string and array
   EE = EE.concat(userInput+", ");
   tableObj.enrich.push(userInput);
   var button = '<button type="reset" value="reset" onclick="resetEEBox(\''+userInput+'\')">X</button>';
   $( "td:empty" ).first().append(userInput + "  " + button);
-  console.log(tableObj.enrich)
 }
 
+//reset educational enrichment box blank
 function resetEEBox(userInput){
-  //console.log(userInput);
+  //finds latest addition of class adn removes it from HTML and array
   $( "td:contains('" + userInput + "')" ).last().text('');
   EE = EE.replace(userInput+",", "")
   var index = tableObj.enrich.indexOf(userInput);
@@ -328,51 +348,68 @@ function resetEEBox(userInput){
   console.log(tableObj.enrich)
 }
 
+//reset MAJOR class box
 function resetBox(tdElement){
-  //console.log(tdElement);
   //gets original tdElement requirement text
   var originalValue = tdElement.split("(");
-  //console.log(tdElement);
+  //grabs the course portion of the HTML text 
   var course = originalValue[1].substring(0, originalValue[1].length-1);
+  //originalValue refers to the requirement displayed on the webpage 
   originalValue = originalValue[0].substring(0, originalValue[0].length-1);
-  console.log(originalValue);
+
+  //HTML manipulation
   //$("td").filter(function() {return $(this).text() === originalValue;}).addClass("thickerBorder");
+  //adds thicker border class incase generate report button is toggled
   $( "td:contains('" + tdElement + "')" ).addClass("thickerBorder");
+  //flips the color of the element back to red
   $( "td:contains('" + tdElement + "')" ).css("background-color", "#ff9980");
-  //$( "td:contains('" + tdElement + "')" ).text('');
+  //sets the table data back to just displaying the requirement
   $( "td:contains('" + tdElement + "')" ).text(originalValue);
-  //removes item from array
+  //removes course and requirement from their respective array
   var index = tableObj.major.indexOf(course);
   tableObj.major.splice(index, 1);
   index = tableObj.reqSat.indexOf(originalValue);
   tableObj.reqSat.splice(index, 1);
-  //console.log(tableObj.major);
-  console.log(tableObj.major + " *post delete major classes");
-  console.log(tableObj.reqSat + " *req satisfied obj");
-  //write function to reinitialize box
+
+
+  // console.log(tableObj.major + " *post delete major classes");
+  // console.log(tableObj.reqSat + " *req satisfied obj");
+  
+  //function goes through each td element and checks if thicker border class has been added 
   $("#tb1 tr").each(function(){
       $(this).find('td').each(function(){
         temp = ($(this));
+        //the if statement checks if the thicker border class has been added and ignores empty table elements
         if(!temp.hasClass("thickerBorder") && temp.text().trim().length > 0){
-          console.log("found temp");
-          flag = 1;
+          //removes class thicker border if the other elements do not have it
           $("td").filter(function() {return $(this).text() === originalValue;}).removeClass();
         }
     })
   });
+
   //call function at end to see if enrichment should be moved
   enrichReAdd();
 
 }
 
+//reset technical electives class box
 function resetElectBox(tdElement) {
+  //gets original tdElement requirement text
   var originalValue = tdElement.split("(");
+  //grabs the course portion of the HTML text 
   var majorCourse = originalValue[1].substring(0, originalValue[1].length-1);
+  
   //saves requirement
   originalValue = originalValue[0].substring(0, originalValue[0].length-1);
+
+  //HTML manipulation
+  //adds thicker border class incase generate report button is toggled
   $( "td:contains('" + tdElement + "')" ).addClass("thickerBorder");
+  //flips the color of the element back to red
   $( "td:contains('" + tdElement + "')" ).css("background-color", "#ff9980");
+  //sets the table data back to just displaying the requirement
   $( "td:contains('" + tdElement + "')" ).text(originalValue);
+
   //deletes user input class from list of major classes
   var index = tableObj.major.indexOf(majorCourse);
   tableObj.major.splice(index, 1);
@@ -387,6 +424,7 @@ function resetElectBox(tdElement) {
   //console.log(tableObj.major + " *post delete major classes");
   //console.log(tableObj.reqSat + " *req satisfied obj");
 
+  //
   $("#tb1 tr").each(function(){
       $(this).find('td').each(function(){
         temp = ($(this));
