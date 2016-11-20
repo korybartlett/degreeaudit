@@ -410,27 +410,32 @@ function resetElectBox(tdElement) {
   //sets the table data back to just displaying the requirement
   $( "td:contains('" + tdElement + "')" ).text(originalValue);
 
-  //deletes user input class from list of major classes
+  //deletes class from list of major classes
   var index = tableObj.major.indexOf(majorCourse);
   tableObj.major.splice(index, 1);
+  //saves last character becuase it signifies the last coen elective deleted 
   var lastChar = originalValue.slice(-1);
+
+  //resets the coen elective count to the earliest available slot 
   if (lastChar < count){
     count = lastChar;
   }
 
+  //deletes class requriement from array
   index = tableObj.reqSat.indexOf(originalValue);
   tableObj.reqSat.splice(index, 1);
 
   //console.log(tableObj.major + " *post delete major classes");
   //console.log(tableObj.reqSat + " *req satisfied obj");
 
-  //
+  //function goes through each td element and checks if thicker border class has been added 
   $("#tb1 tr").each(function(){
       $(this).find('td').each(function(){
         temp = ($(this));
+        //the if statement checks if the thicker border class has been added and ignores empty table elements
         if(!temp.hasClass("thickerBorder") && temp.text().trim().length > 0){
           console.log("found temp");
-          flag = 1;
+          //removes class thicker border if the other elements do not have it
           $("td").filter(function() {return $(this).text() === originalValue;}).removeClass();
         }
     })
