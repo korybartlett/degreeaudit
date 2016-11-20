@@ -123,7 +123,7 @@ var coreReq = {
 }
 
 
-//used for autocomplete
+//array used for autocomplete functionality
 var availableClasses = [
   "engr1",
   "coen10",
