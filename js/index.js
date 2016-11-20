@@ -36,17 +36,23 @@ function generateCSV() {
   var csvFile = "data:text/csv;charset=utf-8,";
 
   //Put major, core, and enrichment lists into tempMajor
-  var tempMajor = tableObj.major.join(",");
-  //console.log(tempMajor);
-  var tempCore = tableObj.core.join(",");
-  //console.log(tempMajor);
+  var tempMajor = tableObj.major.join();
+  var tempCore = tableObj.core.join();
+
+  //if major object contains elements then it adds final comma
   if(tableObj.major.length > 0){
   	tempMajor = tempMajor.concat(",");
   }
+
+  //merges core classes with major classes
   tempMajor = tempMajor.concat(tempCore);
+  
+  //if course object contains elements then it adds final comma
   if(tableObj.core.length > 0){
   	tempMajor = tempMajor.concat(",");
   }
+
+  //adds educational enrichment classes to string of classes
   tempMajor = tempMajor.concat(EE);
 
   csvFile += tempMajor;
@@ -65,109 +71,118 @@ function generateCSV() {
 function generateReport(){
   var output = "";
   var cnt = 0;
+  //checks tb1 checking each table row
   $("#tb1 tr").each(function(){
+    //checks each table data element of current row
     $(this).find('td').each(function(){
+      //saves current spot into temp
       temp = ($(this));
-      //for (var x in majorReq){
-      // if (!temp.includes("(")){
-      //   output = output.concat(temp+"\t");
-      //   //cnt+=1;
-      // }
-      // //for (var y in coreReq){
-      // else if (!temp.includes("(")){
-      //   output = output.concat(temp+"\t");
-      //   //cnt+=1;
-      // }
+
       //ignores educational enrichment boxes, continues to next table element 
       if(temp.hasClass("EduEnrich")){
         return true;
       }
-      //makes sure table element has text, ignores empty elements
+
+      //makes sure table data element has text, ignores empty table data elements
       if(temp.text().trim().length){
         //add/remove class which makes thicker border to table element
         $(this).toggleClass("thickerBorder");
       }
 
-      //removes thicker border class from elements with course
+      //removes thicker border class from elements with course in text
       if (temp.text().includes("(")){
         $(this).removeClass("thickerBorder");
       }
 
     })
   });
-  output = output.concat("\n");
-  output = output.concat("These courses can be used for Educational Enrichment electives: ");
-  output = output.concat(EE);
-  return output;
 }
 
+//Loads data to page passed from CSV 
+//data is a string containing all loaded classes
 function loadData(data) {
-  //console.log(data);
   var userInput = "";
+  //starts at one because initial spot is stray character
+  //loops through each character of the data string
   for(var i = 1; i < data.length; i++)
   {
+      //comma signifies break between courses
+      //bracket also signifies end of class as no comma is placed after final class from CSV
       if(data[i] == "," || data[i] == "]"){
+        //setup string to acceptable program format
+        //makes string lower case
         userInput = userInput.toLowerCase();
+        //drops all white spaces from string
         userInput = userInput.replace(/\s+/g, '');
+        //removes all quotes that exist in string
         userInput = userInput.replace(/"/g, '');
-        console.log(userInput);
+
+        //creates regex patter
         var regexPattern = /^[a-z]{1,4}[0-9,a,b]{1,3}$/;
+        //tests inputs from CSV
         if (!regexPattern.test(userInput)){
-          alert("wrong format")
           continue;
         }
 
+        //checks if class should be added to major classes
         if(majorReq[userInput]){
           addMajorCourse(userInput)
         }
+        //checks if class should be added to core classes
         else if(coreReq[userInput]) {
           addCoreCourse(userInput)
         }
-
+        //classes added to educatoinal enrichment if unable to be added to previous lists
         else {
           addEnrich(userInput)
         }
+        //resets userInput to blank
         userInput = "";
         continue;
       }
+      //concatonates string 
       else{
         userInput+=data[i];
-        //console.log(userInput);
       }
   }
 }
 
+//grabs text from input box
 function textGrab() {
   //grabs user input by element ID, converts to lower case
   var userInput = document.getElementById('userCourse').value.toLowerCase()
   //drops all white spaces in user input
   userInput = userInput.replace(/\s+/g, '');
-  //userInput = userInput.subString(0, 4) + ' ' + userInput.subString(4)
-  //console.log(typeof(userInput));
 
+  //creates regex patter
   var regexPattern = /^[a-z]{1,4}[0-9,a,b]{1,3}$/;
+  //tests input to make sure it fits program formatting
   if (!regexPattern.test(userInput)){
     alert("wrong format")
     return;
   }
 
+  //adds class to major list
   if(majorReq[userInput]){
     addMajorCourse(userInput)
   }
+  //adds class to core list
   else if(coreReq[userInput]) {
     addCoreCourse(userInput)
   }
-
+  //if not added to either list added to enrichment list
   else {
     addEnrich(userInput)
   }
 
+  //clears box after function done running
   document.getElementById('userCourse').value = '';
 }
 
+//adds major classes to object and html
 function addMajorCourse (userInput) {
+  //reqMet is requirement(s) satisfied by course
   var reqMet = majorReq[userInput];
-
   //returns true if fails check, false if it passes
   if (majorReqCheck(userInput, reqMet)) {
     return;
@@ -223,6 +238,7 @@ function addMajorCourse (userInput) {
 }
 
 function addCoreCourse (userInput) {
+  //reqMet is requirement(s) satisfied by course
   var reqMet = coreReq[userInput];
   var numReqMet = coreReq[userInput].length;
 
@@ -505,12 +521,6 @@ function resetCoreBox(tdElement){
   }
 
   enrichReAdd();
-  //console.log(tableObj.reqSat + " req obj");
-
-  // if(flag == 1){
-  //   console.log("remove")
-  //   $("td").filter(function() {return $(this).text() === reqSplit;}).removeClass();
-  // }
 }
 
 //function checks if requirement removed can be satisfied by a double dipper that is currently in list 
@@ -528,6 +538,7 @@ function reAdd(course, reqMet){
   console.log(tableObj.reqSat + " readded reqs");
 }
 
+//readds classes from educational enrichments to either major or core classes
 function enrichReAdd (){
   var size = tableObj.enrich.length;
   for(var i=0;i<size;i++){
@@ -550,6 +561,8 @@ function enrichReAdd (){
   }
 }
 
+//checks that user input is: not undefined, not already addded to list of classes, requirement not already satisfied
+//returns true becuase it failed the check
 function majorReqCheck (userInput, reqMet) {
   //if reqMet comes back undefined then requirement not available in list
   if(typeof(reqMet) === 'undefined'){
@@ -557,12 +570,13 @@ function majorReqCheck (userInput, reqMet) {
     return true;
   }
 
-  //function $.inArray returns index of value, -1 if not found in array
+  //checks if course already exsists in course list
   if(tableObj.major.includes(userInput)){
     //alert("class: "+ userInput+" already added");
     return true;
   }
 
+  //checks if requirement met is already in list
   if(tableObj.reqSat.includes(reqMet)){
     //alert("requirment: "+reqMet+" already satisfied");
     return true;
@@ -571,20 +585,22 @@ function majorReqCheck (userInput, reqMet) {
   return false;
 }
 
+//checks that user input is: not undefined, not already addded to list of classes, requirement not already satisfied
+//returns true becuase it failed the check
 function coreReqCheck(userInput, reqMet){
-  //if reqMet comes back undefined then requirement not available in list
-  //console.log(reqMet);
+  //if reqMet is undefined then requirement not available in list
   if(typeof(reqMet) === 'undefined'){
     //alert("not in core reqs!");
     return true;
   }
 
+  //checks if course already exsists in course list
   if(tableObj.core.includes(userInput)){
     //alert("class: "+ userInput+" already added");
     return true;
   }
 
-  //console.log(reqMet);
+  //checks if requirement met is already in list
   if(tableObj.reqSat.includes(reqMet)){
     //alert("requirment: "+reqMet+" already satisfied");
     return true;
@@ -593,7 +609,7 @@ function coreReqCheck(userInput, reqMet){
   return false;
 }
 
-//enter button function
+//enter button functionality
 $(document).keypress(function(ev){
   if (ev.which == 13) {
     textGrab();
@@ -605,7 +621,6 @@ $(document).keypress(function(ev){
 $(function() {
   $( "#userCourse" ).autocomplete({source: availableClasses});
 });
-
 
 /*
 
