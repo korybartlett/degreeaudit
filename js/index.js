@@ -5,8 +5,11 @@ requirements have been moved seperate file for clarity
 
 //declaring global variables used
 var count = 1;
-var EE="";
-var toggle = 0
+var EE = "";
+var toggle = 0;
+
+console.log(typeof(toggle));
+console.log(toggle);
 
 //declaring global objects used
 var tableObj = {
@@ -21,7 +24,7 @@ $(document).ready(function() {
   //loads CSV via local storage
   var data = localStorage.getItem('oldData');
   toggle = 0;
-  console.log(toggle);
+  //console.log(toggle);
   //if info found, calls load data function
   if (data) {
     loadData(data);
@@ -30,6 +33,7 @@ $(document).ready(function() {
   else{
     console.log("no data returned");
   }
+  // makewhite();
 });
 
 //Create CSV
@@ -73,32 +77,25 @@ function generateCSV() {
 //generate report via bolded boxes
 function generateReport(){
   var output = "";
-  var cnt = 0;
+  toggle++;
   //checks tb1 checking each table row
-  $("#tb1 tr").each(function(){
-    //checks each table data element of current row
-    $(this).find('td').each(function(){
-      //saves current spot into temp
+  $("td").each(function(){
       temp = ($(this));
-
       //ignores educational enrichment boxes, continues to next table element 
       if(temp.hasClass("EduEnrich")){
         return true;
       }
-
-      //makes sure table data element has text, ignores empty table data elements
-      if(temp.text().trim().length){
-        //add/remove class which makes thicker border to table element
-        $(this).toggleClass("thickerBorder");
-      }
-
       //removes thicker border class from elements with course in text
       if (temp.text().includes("(")){
-        $(this).removeClass("thickerBorder");
+        //$(this).removeClass("thickerBorder");
+        return true;
       }
-
-    })
+      else{
+        temp.toggleClass("thickerBorder");
+      }
   });
+  console.log(toggle);
+  console.log(toggle%2);
 }
 
 //Loads data to page passed from CSV 
@@ -203,12 +200,6 @@ function addMajorCourse (userInput) {
     		count++;
     	}
     }
-
-
-    // if(EE.includes(userInput)){
-    //   console.log("found coen reuse");
-    //   resetEEBox(userInput);
-    // }
 
     //when coen elect greater than 3 it is added to enrichment
     if (count > 3){
@@ -336,10 +327,13 @@ function addEnrich(userInput){
   tableObj.enrich.push(userInput);
   var button = '<button type="reset" value="reset" onclick="resetEEBox(\''+userInput+'\')">X</button>';
   $( "td:empty" ).first().append(userInput + "  " + button);
+  //$("td").filter(function() {return $(this).text() === userInput;}).css("background-color", "#adebad");
+  $( "td:contains('" + userInput + "')" ).css("background-color", "#adebad");
 }
 
 //reset educational enrichment box blank
 function resetEEBox(userInput){
+  $( "td:contains('" + userInput + "')" ).last().css("background-color", "#ffd263");
   //finds latest addition of class adn removes it from HTML and array
   $( "td:contains('" + userInput + "')" ).last().text('');
   EE = EE.replace(userInput+",", "")
@@ -375,17 +369,11 @@ function resetBox(tdElement){
   // console.log(tableObj.major + " *post delete major classes");
   // console.log(tableObj.reqSat + " *req satisfied obj");
   
-  //function goes through each td element and checks if thicker border class has been added 
-  $("#tb1 tr").each(function(){
-      $(this).find('td').each(function(){
-        temp = ($(this));
-        //the if statement checks if the thicker border class has been added and ignores empty table elements
-        if(!temp.hasClass("thickerBorder") && temp.text().trim().length > 0){
-          //removes class thicker border if the other elements do not have it
-          $("td").filter(function() {return $(this).text() === originalValue;}).removeClass();
-        }
-    })
-  });
+  //function goes through each td element and checks if thicker border class has been added   
+  if(toggle%2 == 0){
+    //$("td").filter(function() {return $(this).text() === originalValue;}).removeClass();
+    $( "td:contains('" + originalValue + "')" ).removeClass();
+  }
 
   //call function at end to see if enrichment should be moved
   enrichReAdd();
@@ -428,18 +416,12 @@ function resetElectBox(tdElement) {
   //console.log(tableObj.major + " *post delete major classes");
   //console.log(tableObj.reqSat + " *req satisfied obj");
 
-  //function goes through each td element and checks if thicker border class has been added 
-  $("#tb1 tr").each(function(){
-      $(this).find('td').each(function(){
-        temp = ($(this));
-        //the if statement checks if the thicker border class has been added and ignores empty table elements
-        if(!temp.hasClass("thickerBorder") && temp.text().trim().length > 0){
-          console.log("found temp");
-          //removes class thicker border if the other elements do not have it
-          $("td").filter(function() {return $(this).text() === originalValue;}).removeClass();
-        }
-    })
-  });
+  //function goes through each td element and checks if thicker border class has been added   
+  if(toggle%2 == 0){
+    //$("td").filter(function() {return $(this).text() === originalValue;}).removeClass();
+    $( "td:contains('" + originalValue + "')" ).removeClass();
+  }
+
   //call function at end to see if enrichment should be moved
   enrichReAdd();
 }
@@ -487,20 +469,9 @@ function resetCoreBox(tdElement){
         tableObj.core.splice(index, 1);
       }
 
-      //loops through table to identify if thicker border is currently enabled, removes thicker border class if not enabled
-      $("#tb1 tr").each(function(){
-        $(this).find('td').each(function(){
-          temp = ($(this));
-          /*does NOT Work properly still*/
-          if(!temp.hasClass("thickerBorder") && temp.text().trim().length > 1){
-            console.log("found temp!!!!"+k);
-            console.log(temp.text())
-            console.log(reqSplit +" reqSplit")
-            flag = 1;
-            $("td").filter(function() {return $(this).text() === reqSplit;}).removeClass();
-          }
-        })
-      });
+      if(toggle%2 == 0){
+        $("td").filter(function() {return $(this).text() === reqSplit;}).removeClass();
+      }
 
       //console.log(tableObj.core + " *post  delete core classes");
       //delReq = delReq + " " + reqSplit;
@@ -530,21 +501,10 @@ function resetCoreBox(tdElement){
     $( "td:contains('" + course + "')" ).first().css("background-color", "#ff9980");
     //resets the table element to just the requirement
     $( "td:contains('" + course + "')" ).first().text(reqSplit);
-    
 
-    //Traverses through table's rows
-    $("#tb1 tr").each(function(){
-        $(this).find('td').each(function(){
-          temp = ($(this));
-          //the if statement checks if the thicker border class has been added and ignores empty table elements
-          if(!temp.hasClass("thickerBorder") && temp.text().trim().length > 0){
-            console.log("found temp");
-            flag = 1;
-            //removes class thicker border if the other elements do not have it
-            $("td").filter(function() {return $(this).text() === reqSplit;}).removeClass();
-          }
-      })
-    });
+    if(toggle%2 == 0){
+        $("td").filter(function() {return $(this).text() === reqSplit;}).removeClass();
+    }
 
     //removes item from array
     var index = tableObj.core.indexOf(course);

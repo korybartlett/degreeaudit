@@ -1,7 +1,4 @@
 - add CSS
-- fix generate button functionality
-	- breaks on double dips when classes are already submitted and button is toggled
 - educational enrichment shift up once removed
-- breaking up table
 - Fix educational enrichment coloring scheme 
-- divide tables into individual tables per req
+

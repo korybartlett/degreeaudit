@@ -18,126 +18,205 @@
     <input type="text" name="course" id="userCourse" placeholder="Example: coen10">
     <input type="button" value="Enter" id="submitButton" onclick="textGrab()">
   </div>
-  <div id="tables">
-    <table id="tb1" align="center">
+  <div id="tables" >
+    <table id="tblMLD">
       <tr>
-        <th>Major (Lower Div)</th>
+          <th>Major (Lower Div)</th>
+      </tr>
+        <tr>
+          <td>engr 1</td>
+        </tr>
+        <tr>
+          <td>coen 10</td>
+        </tr>
+        <tr>
+          <td>coen 11</td>
+        </tr>
+        <tr>
+          <td>coen 12</td>
+        </tr>
+        <tr>
+          <td>coen 19</td>
+        </tr>
+          <td>coen 20</td>
+        </tr>
+        <tr>
+          <td>coen 21</td>
+        </tr>
+        <tr>
+          <td>coen 70</td>
+        </tr>
+        <tr>
+          <td>elen 50</td>
+        </tr>
+    </table>
+
+    <table id="tblMUD">
+      <tr>
         <th>Major (Upper Div)</th>
-        <th>Math and Science</th>
-        <th>Core</th>
-        <th>Educational Enrichment</th>
       </tr>
       <tr>
-        <td>engr 1</td>
         <td>coen 122</td>
-        <td>math 11</td>
-        <td>CTW1</td>
-        <td class="EduEnrich"></td>
       </tr>
       <tr>
-        <td>coen 10</td>
         <td>coen 146</td>
-        <td>math 12</td>
-        <td>CTW2</td>
-        <td class="EduEnrich"></td>
       </tr>
       <tr>
-        <td>coen 11</td>
         <td>coen 171</td>
-        <td>math 13</td>
-        <td>social science</td>
-        <td class="EduEnrich"></td>
       </tr>
       <tr>
-        <td>coen 12</td>
         <td>coen 174</td>
-        <td>math 14</td>
-        <td>CI1</td>
-        <td class="EduEnrich"></td>
       </tr>
       <tr>
-        <td>coen 19</td>
         <td>coen 175</td>
-        <td>math elective</td>
-        <td>CI2</td>
-        <td class="EduEnrich"></td>
       </tr>
       <tr>
-        <td>coen 20</td>
         <td>coen 177</td>
-        <td>amth 106</td>
-        <td>CI3</td>
-        <td class="EduEnrich"></td>
       </tr>
       <tr>
-        <td>coen 21</td>
         <td>coen 179</td>
-        <td>amth 108</td>
-        <td>rtc1</td>
-        <td class="EduEnrich"></td>
       </tr>
       <tr>
-        <td>coen 70</td>
         <td>coen 194</td>
-        <td>phys 31</td>
-        <td>rtc2</td>
-        <td class="EduEnrich"></td>
       </tr>
       <tr>
-        <td>elen 50</td>
-        <td>coen 195</td>
-        <td>phys 32</td>
-        <td>rtc3</td>
-        <td class="EduEnrich"></td>      
+        <td>coen 195</td>  
       </tr>
       <tr>
-        <td> </td>
         <td>coen 196</td>
-        <td>phys 33</td>
-        <td>ethics</td>
-        <td class="EduEnrich"></td>
       </tr>
       <tr>
-        <td> </td>
-        <td class="coen elective 1">coen elective 1</td>
-        <td>chem 11</td>
-        <td>arts</td>
-        <td class="EduEnrich"></td>
+        <td>coen elective 1</td>
       </tr>
       <tr>
-        <td> </td>
-        <td class="coen elective 2">coen elective 2</td>
-        <td> </td>
-        <td>diversity</td>
-        <td class="EduEnrich"></td>
+        <td>coen elective 2</td>
       </tr>
       <tr>
-        <td> </td>
-        <td class="coen elective 3">coen elective 3</td>
-        <td> </td>
-        <td>ELSJ</td>
-        <td class="EduEnrich"></td>
+        <td>coen elective 3</td>
       </tr>
       <tr>
-        <td> </td>
         <td>elen 153</td>
-        <td> </td>
+      </tr>
+    </table>
+
+    <table id="tblMS">
+      <tr>
+        <th>Math and Science</th>
+      </tr>
+      <tr>
+        <td>math 11</td>
+      </tr>
+      <tr>
+        <td>math 12</td>
+      </tr>
+      <tr>
+        <td>math 13</td>
+      </tr>
+      <tr>
+        <td>math 14</td>
+      </tr>
+      <tr>
+        <td>amth 106</td>
+      </tr>
+      <tr>
+        <td>amth 108</td>
+      </tr>
+      <tr>
+        <td>math elective</td>
+      </tr>
+      <tr>
+        <td>chem 11</td>
+      </tr>
+      <tr>
+        <td>phys 31</td>
+      </tr>
+      <tr>
+        <td>phys 32</td>
+      </tr>
+      <tr>
+        <td>phys 33</td>
+      </tr>
+    </table>
+
+    <table id="tblCore">
+      <tr>
+        <th>Core (Upper Div)</th>
+      </tr>
+      <tr>
+        <td>CTW1</td>
+      </tr>
+      <tr>
+        <td>CTW2</td>
+      </tr>
+      <tr>
+        <td>CI1</td>
+      </tr>
+      <tr>
+        <td>CI2</td>
+      </tr>
+      <tr>
+        <td>CI3</td>
+      </tr>
+      <tr>
+        <td>rtc1</td>
+      </tr>
+      <tr>
+        <td>rtc2</td>
+      </tr>
+      <tr>
+        <td>rtc3</td>
+      </tr>
+      <tr>
+        <td>social science</td>
+      </tr>
+      <tr>
+        <td>ethics</td>
+      </tr>
+      <tr>
+        <td>diversity</td>
+      </tr>
+      <tr>
+        <td>arts</td>
+      </tr>
+      <tr>
+        <td>ELSJ</td>
+      </tr>
+      <tr>
         <td>civic engagement</td>
+      </tr>
+      <tr>
+        <td>engr comm</td>
+      </tr>
+    </table>
+    <table id="tblEE" class="tblEE">
+      <tr>
+        <th colspan="2">Educational Enrichment</th>
+      </tr>
+      <tr>
         <td class="EduEnrich"></td>
       </tr>
       <tr>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-        <td>engr comm</td>
         <td class="EduEnrich"></td>
       </tr>
-    </table>
-    <table id="tblMS">
-    </table>
-    <table id="tblCore">
-    </table>
-    <table id="tblEE">
+      <tr>
+        <td class="EduEnrich"></td>
+      </tr>
+      <tr>
+        <td class="EduEnrich"></td>
+      </tr>
+      <tr>
+        <td class="EduEnrich"></td>
+      </tr>
+      <tr>
+        <td class="EduEnrich"></td>
+      </tr>
+      <tr>
+        <td class="EduEnrich"></td>
+      </tr>
+      <tr>
+        <td class="EduEnrich"></td>
+      </tr>
+
     </table>
   </div>
   <div class="generateBar">

@@ -21,6 +21,10 @@ input {
   /*color: #FFFF99;*/
 }
 
+.EduEnrich{
+  background-color: #fff7c2;
+}
+
 #submitButton{
 /*   padding: 10px; */
   height: 22px;
@@ -29,12 +33,13 @@ input {
 #savebtn {
   text-align: center;
   margin: 0 auto;
-  padding-top: 40px;
+  padding-top: 10px;
 }
 
 .generateBar {
   text-align: center;
   margin: 0 auto;
+  clear: both;
 }
 
 #generatebtn {
@@ -82,4 +87,38 @@ footer{
 
 h3 {
   margin: 0px;
+}
+
+table{
+  text-align: center;
+  display: inline-block;
+  /*float: left;*/
+  margin-bottom: 20px;
+  
+
+}
+
+#tblMLD {
+  margin-left: 30px;
+  margin-right: 30px;
+}
+
+#tblMUD{
+  margin-right: 30px;
+}
+
+#tblMS{
+  margin-right: 30px;
+}
+
+#tblCore{
+  margin-right: 30px;
+}
+
+#tblEE{
+  margin-right: 30px;
+}
+
+#tables{
+  text-align: center;
 }
