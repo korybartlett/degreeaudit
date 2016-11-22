@@ -49,7 +49,7 @@ var majorReq = {
   elen133: "coen elective",
   elen134: "coen elective",
   //ENGL Reqs
-  engl181: "engineering communications",
+  engl181: "engr comm",
   //ELEN Reqs
   elen50: "elen 50",
   elen153: "elen 153",
@@ -97,12 +97,12 @@ var coreReq = {
   tesp4:"rtc1",
   rsoc27:"rtc2",
   rsoc33:"rtc2",
-  rsoc99:["rtc2", "experiential learning"],
+  rsoc99:["rtc2", "ELSJ"],
   tesp71:"rtc2",
   rsoc119: "rtc3",
   rsoc121:"rtc3",
   rsoc154:"rtc3",
-  tesp158: ["rtc3", "diversity", "experiential learning"],
+  tesp158: ["rtc3", "diversity", "ELSJ"],
   phil2: "ethics",
   phil6: "ethics",
   phil9: "ethics",
@@ -118,8 +118,8 @@ var coreReq = {
   engr1: "civic engagement",
   poli1: "civic engagement",
   mgmt6: "civic engagement",
-  anth3: "experiential learning",
-  elsj22: "experiential learning"
+  anth3: "ELSJ",
+  elsj22: "ELSJ"
 }
 
 

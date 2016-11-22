@@ -53,6 +53,11 @@ table, th, td {
 
 }
 
+td {
+  width: 200px;
+  height: 20px;
+}
+
 th {
   background-color: #ffffff;
 }
