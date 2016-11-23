@@ -24,7 +24,6 @@ $(document).ready(function() {
   //loads CSV via local storage
   var data = localStorage.getItem('oldData');
   toggle = 0;
-  //console.log(toggle);
   //if info found, calls load data function
   if (data) {
     loadData(data);
@@ -87,7 +86,6 @@ function generateReport(){
       }
       //removes thicker border class from elements with course in text
       if (temp.text().includes("(")){
-        //$(this).removeClass("thickerBorder");
         return true;
       }
       else{
@@ -326,20 +324,19 @@ function addEnrich(userInput){
   EE = EE.concat(userInput+", ");
   tableObj.enrich.push(userInput);
   var button = '<button type="reset" value="reset" onclick="resetEEBox(\''+userInput+'\')">X</button>';
-  $( "td:empty" ).first().append(userInput + "  " + button);
-  //$("td").filter(function() {return $(this).text() === userInput;}).css("background-color", "#adebad");
-  $( "td:contains('" + userInput + "')" ).css("background-color", "#adebad");
+  var injectedText = userInput + " " + button;
+  var htmlText = "<tr><td class=EduEnrich>"+ injectedText +"</td></tr>";
+  $('#tblEE tr:last').after(htmlText);
 }
 
 //reset educational enrichment box blank
 function resetEEBox(userInput){
-  $( "td:contains('" + userInput + "')" ).last().css("background-color", "#ffd263");
-  //finds latest addition of class adn removes it from HTML and array
-  $( "td:contains('" + userInput + "')" ).last().text('');
+  //finds the last occurence of a class within the educatoinal enrichments and removes it
+  $( "td:contains('" + userInput + "')" ).parent().last().remove();
+
   EE = EE.replace(userInput+",", "")
   var index = tableObj.enrich.indexOf(userInput);
   tableObj.enrich.splice(index, 1);
-  console.log(tableObj.enrich)
 }
 
 //reset MAJOR class box
@@ -352,7 +349,6 @@ function resetBox(tdElement){
   originalValue = originalValue[0].substring(0, originalValue[0].length-1);
 
   //HTML manipulation
-  //$("td").filter(function() {return $(this).text() === originalValue;}).addClass("thickerBorder");
   //adds thicker border class incase generate report button is toggled
   $( "td:contains('" + tdElement + "')" ).addClass("thickerBorder");
   //flips the color of the element back to red
@@ -369,7 +365,7 @@ function resetBox(tdElement){
   // console.log(tableObj.major + " *post delete major classes");
   // console.log(tableObj.reqSat + " *req satisfied obj");
   
-  //function goes through each td element and checks if thicker border class has been added   
+  //checks if toggle has been used or not: 1 = clicked, 0 = clicked  
   if(toggle%2 == 0){
     //$("td").filter(function() {return $(this).text() === originalValue;}).removeClass();
     $( "td:contains('" + originalValue + "')" ).removeClass();
@@ -416,7 +412,7 @@ function resetElectBox(tdElement) {
   //console.log(tableObj.major + " *post delete major classes");
   //console.log(tableObj.reqSat + " *req satisfied obj");
 
-  //function goes through each td element and checks if thicker border class has been added   
+  //checks if toggle has been used or not: 1 = clicked, 0 = clicked 
   if(toggle%2 == 0){
     //$("td").filter(function() {return $(this).text() === originalValue;}).removeClass();
     $( "td:contains('" + originalValue + "')" ).removeClass();
@@ -469,17 +465,13 @@ function resetCoreBox(tdElement){
         tableObj.core.splice(index, 1);
       }
 
+      //checks if toggle has been used or not: 1 = clicked, 0 = clicked
       if(toggle%2 == 0){
         $("td").filter(function() {return $(this).text() === reqSplit;}).removeClass();
       }
 
-      //console.log(tableObj.core + " *post  delete core classes");
-      //delReq = delReq + " " + reqSplit;
       //saves the deleted requirement that was removed from the table
       delReq = reqSplit
-      //console.log(delReq +" saved req");
-      //console.log(tableObj.reqSat + " *pre delete reqsaved");
-      //console.log(reqMet[k] + " *reqmet");
 
       //removes the requirement from array
       index = tableObj.reqSat.indexOf(reqSplit);
@@ -502,6 +494,7 @@ function resetCoreBox(tdElement){
     //resets the table element to just the requirement
     $( "td:contains('" + course + "')" ).first().text(reqSplit);
 
+    //checks if toggle has been used or not: 1 = clicked, 0 = clicked
     if(toggle%2 == 0){
         $("td").filter(function() {return $(this).text() === reqSplit;}).removeClass();
     }

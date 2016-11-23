@@ -1,5 +1,6 @@
 /*
   red = #ff9980
+  yellow = #fff7c2
 */
 h1 {
   text-align: center;
@@ -22,7 +23,7 @@ input {
 }
 
 .EduEnrich{
-  background-color: #fff7c2;
+  background-color: #adebad;
 }
 
 #submitButton{
