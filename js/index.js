@@ -365,10 +365,10 @@ function resetBox(tdElement){
   // console.log(tableObj.major + " *post delete major classes");
   // console.log(tableObj.reqSat + " *req satisfied obj");
   
-  //checks if toggle has been used or not: 1 = clicked, 0 = clicked  
+  //checks if toggle has been used or not: 1 = clicked, 0 = not clicked  
   if(toggle%2 == 0){
-    //$("td").filter(function() {return $(this).text() === originalValue;}).removeClass();
-    $( "td:contains('" + originalValue + "')" ).removeClass();
+    $("td").filter(function() {return $(this).text() === originalValue;}).removeClass();
+    //$( "td:contains('" + originalValue + "')" ).removeClass();
   }
 
   //call function at end to see if enrichment should be moved
@@ -414,8 +414,8 @@ function resetElectBox(tdElement) {
 
   //checks if toggle has been used or not: 1 = clicked, 0 = clicked 
   if(toggle%2 == 0){
-    //$("td").filter(function() {return $(this).text() === originalValue;}).removeClass();
-    $( "td:contains('" + originalValue + "')" ).removeClass();
+    $("td").filter(function() {return $(this).text() === originalValue;}).removeClass();
+    //$( "td:contains('" + originalValue + "')" ).removeClass();
   }
 
   //call function at end to see if enrichment should be moved

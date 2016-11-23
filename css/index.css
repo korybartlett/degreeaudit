@@ -23,7 +23,7 @@ input {
 }
 
 .EduEnrich{
-  background-color: #adebad;
+  background-color: #fff7c2;
 }
 
 #submitButton{
@@ -74,6 +74,7 @@ tr {
 
 body {
 /*   background-color: #FFF8DC; */
+  font-family: 'Raleway', sans-serif;
 }
 
 footer{
