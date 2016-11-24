@@ -82,7 +82,7 @@ input {
   padding: 8px 10px 8px;
 }
 
-.savebtn:hover{
+.savebtn:hover {
   background-color: #e7e7e7;
   text-align:center;
   margin: 0 auto;
@@ -105,7 +105,7 @@ input {
   margin: 10px;
 }
 
-.generatebtn:hover{
+.generatebtn:hover {
   background-color: #e7e7e7;
 }
 
