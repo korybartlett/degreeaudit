@@ -65,11 +65,11 @@ function generateCSV() {
 
   //Export CSV file
   var a = document.createElement('a');
-  a.href     = csvFile;
-  a.target   = '_blank';
-  a.download = 'degreeData.csv';
-  document.body.appendChild(a);
-  a.click();
+    a.href     = csvFile;
+    a.target   = '_blank';
+    a.download = 'degreeData.csv';
+    document.body.appendChild(a);
+    a.click();
 
 }
 

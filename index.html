@@ -16,7 +16,7 @@
   <div class="userInput">
     <h3>Classes Input</h3>
     <input type="text" name="course" id="userCourse" placeholder="Example: coen10">
-    <input type="button" value="Enter" id="submitButton" onclick="textGrab()">
+    <input type="button" class="button submitButton" value="Enter" id="submitButton" onclick="textGrab()">
   </div>
   <div id="tables" >
     <table id="tblMLD">
@@ -226,10 +226,10 @@
     </table>  
   </div>
   <div class="generateBar">
-    <input type="button" id="generatebtn" value="Show Unmet Requirements" onclick="generateReport()">
+    <input type="button" id="generatebtn" class="button generatebtn" value="Show Unmet Requirements" onclick="generateReport()">
   </div>
-  <div>
-    <button id="savebtn" type="button"  onclick="generateCSV()">Save</button>
+  <div id="savebtn">
+    <button type="button" class="button savebtn" onclick="generateCSV()">Save</button>
   </div>
   <div>
     <footer>

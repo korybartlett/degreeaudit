@@ -11,11 +11,11 @@ body {
 table{
   /*text-align: center;*/
   display: inline-block;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 table, th, td {
-  border: 1px solid black;
+  border: 1px solid #808080;
   border-width: thin;
   /*text-align: center;*/
 }
@@ -24,6 +24,7 @@ td {
   width: 200px;
   height: 20px;
   background-color: #ff9980;
+  border: 1px solid #cccccc;
 }
 
 /*th {
@@ -56,7 +57,7 @@ input {
   font-size: 1em;
 }
 
-#submitButton {
+.submitButton {
 /*   padding: 10px; */
   height: 22px;
   background-color: white;
@@ -67,24 +68,27 @@ input {
   padding: 1px 10px 20px;
 }
 
-#submitButton:hover {
+.submitButton:hover {
   background-color: #e7e7e7;
   text-align:center;
   margin: 0 auto;
 }
 
-#savebtn {
+.savebtn {
   background-color: white;
+  color: black;
   border: 2px solid #e7e7e7;
   text-align: center;
   margin: 0 auto;
- /* padding: 8px 10px 8px;*/
+  padding: 8px 10px 8px;
+  margin-bottom: 20px;
 }
 
-#savebtn:hover {
+.savebtn:hover {
   background-color: #e7e7e7;
   text-align:center;
   margin: 0 auto;
+  margin-bottom: 20px;
 }
 
 .generateBar {
@@ -92,7 +96,7 @@ input {
   margin: 0 auto;
 }
 
-#generatebtn {
+.generatebtn {
 /*  padding: 1em;*/
   font-size: 16px;
   /*height: 22px;*/
@@ -104,11 +108,11 @@ input {
   margin: 10px;
 }
 
-#generatebtn:hover {
+.generatebtn:hover {
   background-color: #e7e7e7;
 }
 
-#tblMLD {
+#tblMLD{
   margin-left: 20px;
   margin-right: 20px;
 }
@@ -140,7 +144,10 @@ input {
 }
 
 .thickerBorder{
-  border-width: medium;
+  border-width: 2px;
+  /* medium width pushes the generate
+  button too far down */
+  border-color: #404040;
   /*color: ; //sets color of text*/
 }
 
