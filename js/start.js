@@ -14,6 +14,12 @@ function loadPage(){
 
 //function to read CSV file and make information usable
 function grabFile(){
+  //checks to see if file is loaded in system
+  if( document.getElementById("filebtn").files.length == 0 ){
+    alert("no files selected, unable to load progress report");
+    return;
+  }
+
   //establishes file reader object
   var fr = new FileReader();
   //grabs file properties with uploaded files
@@ -21,6 +27,7 @@ function grabFile(){
 
   //grabs the first file object from file reader
   fr.readAsText(files[0]);
+
   //loads the file information from file object and splits at comma
   fr.onload = function() {
     var importData = this.result;
