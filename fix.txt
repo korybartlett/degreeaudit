@@ -1,4 +1,0 @@
-- add CSS
-- educational enrichment shift up once removed
-- Fix educational enrichment coloring scheme 
-
