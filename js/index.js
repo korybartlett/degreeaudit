@@ -183,6 +183,7 @@ function addMajorCourse (userInput) {
   var reqMet = majorReq[userInput];
   //returns true if fails check so it enters if, false if it passes
   if (majorReqCheck(userInput, reqMet)) {
+    addEnrich(userInput)
     return;
   }
 
@@ -282,7 +283,7 @@ function addCoreCourse (userInput) {
     //checks course, comes back true if it fails
     if (coreReqCheck(userInput, reqMet)) {
       //added to enrichment if it fails
-      addEnrich(userInput)
+      addEnrich(userInput);
       return;
     }
 
