@@ -547,24 +547,29 @@ function reAdd(course, reqMet){
 function enrichReAdd (){
   //gets the size of the enrichment classes array
   var size = tableObj.enrich.length;
-  for(var i=0;i<size;i++){
-    //temporaryily saves the enrichment course 
-    var course = tableObj.enrich[i];
-    
-    //checks to see if the current list of enrichment classes can be moved to the major or core list
-    //if class fits into another list, then it is removed from enrichment list and added to appropiate group
-    //checks if class fits in to major list
-    if(majorReq[course]){
+  for(var j=0; j<size, j++){
+    for(var i=0;i<size;i++){
+      // if(size>tableObj.enrich.length){
+      //   i = 0;
+      // }
+      //temporaryily saves the enrichment course 
+      var course = tableObj.enrich[i];
+      
+      //checks to see if the current list of enrichment classes can be moved to the major or core list
+      //if class fits into another list, then it is removed from enrichment list and added to appropiate group
+      //checks if class fits in to major list
+      if(majorReq[course]){
+          resetEEBox(course);
+          addMajorCourse(course);
+      }
+      //checks if class fits in to core list
+      else if(coreReq[course]) {
         resetEEBox(course);
-        addMajorCourse(course);
-    }
-    //checks if class fits in to core list
-    else if(coreReq[course]) {
-      resetEEBox(course);
-      addCoreCourse(course);
-    }
-    else{
-      continue;
+        addCoreCourse(course);
+      }
+      else{
+        continue;
+      }
     }
   }
 }
